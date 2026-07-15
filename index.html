@@ -1,121 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HBCU Pride Patterns | Nubian Pride Marketplace</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: #0d0d0d; color: #f5f5f5; }
+header {
+ background: linear-gradient(135deg, #1a0a00, #3d1f00);
+ padding: 24px 40px;
+ text-align: center;
+ border-bottom: 3px solid #c9a84c;
+}
+header h1 { font-size: 2rem; color: #c9a84c; letter-spacing: 3px; }
+header p { color: #d4b483; margin-top: 6px; font-size: 0.95rem; }
+.gallery {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+ gap: 24px;
+ padding: 40px;
+ max-width: 1400px;
+ margin: 0 auto;
+}
+.card {
+ background: #1a1a1a;
+ border-radius: 16px;
+ border: 1px solid #2a2a2a;
+ overflow: hidden;
+}
+.card canvas { display: block; width: 100%; height: 260px; }
+.card-info { padding: 16px 18px; }
+.card-info h3 { color: #c9a84c; font-size: 0.95rem; letter-spacing: 1px; margin-bottom: 4px; }
+.card-info p { color: #777; font-size: 0.8rem; margin-bottom: 12px; }
+.card-actions { display: flex; gap: 8px; }
+.btn-dl {
+ flex: 1; padding: 9px;
+ background: linear-gradient(135deg, #c9a84c, #a8832a);
+ border: none; border-radius: 8px;
+ color: #1a0a00; font-weight: 700; font-size: 0.82rem; cursor: pointer;
+}
+.btn-cw {
+ flex: 1; padding: 9px;
+ background: transparent;
+ border: 1px solid #c9a84c;
+ border-radius: 8px;
+ color: #c9a84c; font-size: 0.82rem; cursor: pointer;
+}
+.btn-cw:hover { background: #3d1f00; }
+@media(max-width:600px){ .gallery { padding: 16px; } }
+</style>
+</head>
+<body>
+
+<header>
+ <h1>&#128081; NUBIAN PRIDE MARKETPLACE</h1>
  <p>HBCU Pride Original Pattern Collection - 8 Exclusive Designs</p>
 </header>
 
 <div class="gallery" id="gallery"></div>
 
 <script>
-const DESIGNS = [
- {
- name: "SCHOLAR CROWN",
- vibe: "Royalty meets academic excellence",
- colorways: [
- { bg:"#0d0d0d", p1:"#c9a84c", p2:"#f5f5f0" },
- { bg:"#003A63", p1:"#FFD700", p2:"#FFFFFF" },
- { bg:"#5a0020", p1:"#c9a84c", p2:"#FFFFFF" }
- ],
- draw: drawScholarCrown
- },
- {
- name: "YARD LIFE",
- vibe: "HBCU campus culture celebration",
- colorways: [
- { bg:"#001f3f", p1:"#FFD700", p2:"#FFFFFF" },
- { bg:"#1B4332", p1:"#c9a84c", p2:"#FFFFFF" },
- { bg:"#2d0057", p1:"#FFD700", p2:"#E8C8FF" }
- ],
- draw: drawYardLife
- },
- {
- name: "BLACK EXCELLENCE GRID",
- vibe: "Bold streetwear meets academic pride",
- colorways: [
- { bg:"#3d0010", p1:"#F5E6C8", p2:"#c9a84c" },
- { bg:"#0d0d0d", p1:"#c9a84c", p2:"#FFFFFF" },
- { bg:"#001f3f", p1:"#FFFFFF", p2:"#FFD700" }
- ],
- draw: drawExcellenceGrid
- },
- {
- name: "DIASPORA ROOTS",
- vibe: "Pan-African heritage meets Black college pride",
- colorways: [
- { bg:"#0d0d0d", p1:"#FFD700", p2:"#CC0000" },
- { bg:"#1a0a00", p1:"#c9a84c", p2:"#4a7c59" },
- { bg:"#2d1a00", p1:"#FFD700", p2:"#008000" }
- ],
- draw: drawDiasporaRoots
- },
- {
- name: "LEGACY STRIPE",
- vibe: "Classic collegiate with cultural depth",
- colorways: [
- { bg:"#003A63", p1:"#FFD700", p2:"#FFFFFF" },
- { bg:"#8B0000", p1:"#F5E6C8", p2:"#c9a84c" },
- { bg:"#1B4332", p1:"#FFFFFF", p2:"#c9a84c" }
- ],
- draw: drawLegacyStripe
- },
- {
- name: "CONSTELLATION SCHOLAR",
- vibe: "Dreamy, aspirational, deeply personal",
- colorways: [
- { bg:"#020818", p1:"#c9a84c", p2:"#FFFFFF" },
- { bg:"#0d0033", p1:"#FFD700", p2:"#C8A9FA" },
- { bg:"#001433", p1:"#87CEEB", p2:"#FFFFFF" }
- ],
- draw: drawConstellation
- },
- {
- name: "STEP & STROLL",
- vibe: "Greek life celebration, zero protected marks",
- colorways: [
- { bg:"#2d0057", p1:"#FFD700", p2:"#FFFFFF" },
- { bg:"#5a0020", p1:"#FFD700", p2:"#FFFFFF" },
- { bg:"#0d0d0d", p1:"#c9a84c", p2:"#FFFFFF" }
- ],
- draw: drawStepStroll
- },
- {
- name: "PILLARS OF EXCELLENCE",
- vibe: "Timeless institutional pride",
- colorways: [
- { bg:"#F5F0E8", p1:"#1a1a1a", p2:"#c9a84c" },
- { bg:"#c9a84c", p1:"#1a0a00", p2:"#FFFFFF" },
- { bg:"#0d0d0d", p1:"#F5F0E8", p2:"#c9a84c" }
- ],
- draw: drawPillars
- }
+
+var activeCW = [0,0,0,0,0,0,0,0];
+
+var DESIGNS = [
+ { name:"SCHOLAR CROWN", vibe:"Royalty meets academic excellence",
+ colorways:[
+ {bg:"#0d0d0d",p1:"#c9a84c",p2:"#f5f5f0"},
+ {bg:"#003A63",p1:"#FFD700",p2:"#FFFFFF"},
+ {bg:"#5a0020",p1:"#c9a84c",p2:"#FFFFFF"}
+ ], draw: drawScholarCrown },
+ { name:"YARD LIFE", vibe:"HBCU campus culture celebration",
+ colorways:[
+ {bg:"#001f3f",p1:"#FFD700",p2:"#FFFFFF"},
+ {bg:"#1B4332",p1:"#c9a84c",p2:"#FFFFFF"},
+ {bg:"#2d0057",p1:"#FFD700",p2:"#E8C8FF"}
+ ], draw: drawYardLife },
+ { name:"BLACK EXCELLENCE GRID", vibe:"Bold streetwear meets academic pride",
+ colorways:[
+ {bg:"#3d0010",p1:"#F5E6C8",p2:"#c9a84c"},
+ {bg:"#0d0d0d",p1:"#c9a84c",p2:"#FFFFFF"},
+ {bg:"#001f3f",p1:"#FFFFFF",p2:"#FFD700"}
+ ], draw: drawExcellenceGrid },
+ { name:"DIASPORA ROOTS", vibe:"Pan-African heritage meets Black college pride",
+ colorways:[
+ {bg:"#0d0d0d",p1:"#FFD700",p2:"#CC0000"},
+ {bg:"#1a0a00",p1:"#c9a84c",p2:"#4a7c59"},
+ {bg:"#2d1a00",p1:"#FFD700",p2:"#008000"}
+ ], draw: drawDiasporaRoots },
+ { name:"LEGACY STRIPE", vibe:"Classic collegiate with cultural depth",
+ colorways:[
+ {bg:"#003A63",p1:"#FFD700",p2:"#FFFFFF"},
+ {bg:"#8B0000",p1:"#F5E6C8",p2:"#c9a84c"},
+ {bg:"#1B4332",p1:"#FFFFFF",p2:"#c9a84c"}
+ ], draw: drawLegacyStripe },
+ { name:"CONSTELLATION SCHOLAR", vibe:"Dreamy, aspirational, deeply personal",
+ colorways:[
+ {bg:"#020818",p1:"#c9a84c",p2:"#FFFFFF"},
+ {bg:"#0d0033",p1:"#FFD700",p2:"#C8A9FA"},
+ {bg:"#001433",p1:"#87CEEB",p2:"#FFFFFF"}
+ ], draw: drawConstellation },
+ { name:"STEP & STROLL", vibe:"Greek life celebration, zero protected marks",
+ colorways:[
+ {bg:"#2d0057",p1:"#FFD700",p2:"#FFFFFF"},
+ {bg:"#5a0020",p1:"#FFD700",p2:"#FFFFFF"},
+ {bg:"#0d0d0d",p1:"#c9a84c",p2:"#FFFFFF"}
+ ], draw: drawStepStroll },
+ { name:"PILLARS OF EXCELLENCE", vibe:"Timeless institutional pride",
+ colorways:[
+ {bg:"#F5F0E8",p1:"#1a1a1a",p2:"#c9a84c"},
+ {bg:"#c9a84c",p1:"#1a0a00",p2:"#FFFFFF"},
+ {bg:"#0d0d0d",p1:"#F5F0E8",p2:"#c9a84c"}
+ ], draw: drawPillars }
 ];
 
-const activeCW = DESIGNS.map( => 0);
-
-// ── BUILD GALLERY ──────────────────────────────────────────
 function buildGallery {
- const gallery = document.getElementById("gallery");
- DESIGNS.forEach((d, i) => {
- const card = document.createElement("div");
+ var gallery = document.getElementById("gallery");
+ for (var i = 0; i < DESIGNS.length; i++) {
+ var d = DESIGNS[i];
+ var card = document.createElement("div");
  card.className = "card";
- card.innerHTML = `
- <canvas id="c${i}" width="640" height="400"></canvas>
- <div class="card-info">
- <h3>${d.name}</h3>
- <p>${d.vibe}</p>
- <div class="card-actions">
- <button class="btn-dl" onclick="downloadPattern(${i})">⬇ Download</button>
- <button class="btn-cw" onclick="nextColorway(${i})">🎨 Next Color</button>
- </div>
- </div>
- `;
+ card.innerHTML =
+ '<canvas id="c' + i + '" width="640" height="400"></canvas>' +
+ '<div class="card-info">' +
+ '<h3>' + d.name + '</h3>' +
+ '<p>' + d.vibe + '</p>' +
+ '<div class="card-actions">' +
+ '<button class="btn-dl" onclick="downloadPattern(' + i + ')">Download</button>' +
+ '<button class="btn-cw" onclick="nextColorway(' + i + ')">Next Color</button>' +
+ '</div></div>';
  gallery.appendChild(card);
  renderPattern(i);
- });
+ }
 }
 
 function renderPattern(i) {
- const canvas = document.getElementById("c" + i);
- const ctx = canvas.getContext("2d");
- const cw = DESIGNS[i].colorways[activeCW[i]];
- DESIGNS[i].draw(ctx, canvas.width, canvas.height, cw);
+ var canvas = document.getElementById("c" + i);
+ if (!canvas) return;
+ var ctx = canvas.getContext("2d");
+ var cw = DESIGNS[i].colorways[activeCW[i]];
+ DESIGNS[i].draw(ctx, 640, 400, cw);
 }
 
 function nextColorway(i) {
@@ -124,31 +149,16 @@ function nextColorway(i) {
 }
 
 function downloadPattern(i) {
- const canvas = document.getElementById("c" + i);
- const link = document.createElement("a");
- link.download = DESIGNS[i].name.replace(/\s+/g, "-").toLowerCase + ".png";
+ var canvas = document.getElementById("c" + i);
+ var link = document.createElement("a");
+ link.download = DESIGNS[i].name.replace(/\s+/g, "-") + ".png";
  link.href = canvas.toDataURL("image/png");
  link.click;
 }
 
-// ── HELPER FUNCTIONS ───────────────────────────────────────
-function star5(ctx, x, y, s, color, alpha) {
- ctx.globalAlpha = alpha || 1;
- ctx.fillStyle = color;
- ctx.beginPath;
- for (let i = 0; i < 10; i++) {
- const r = i % 2 === 0 ? s : s * 0.4;
- const a = (i * Math.PI) / 5 - Math.PI / 2;
- i === 0
- ? ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a))
- : ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
- }
- ctx.closePath;
- ctx.fill;
- ctx.globalAlpha = 1;
-}
+// ── SHAPE HELPERS ──────────────────────────────────────────
 
-function crown(ctx, x, y, s, color) {
+function drawCrown(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.85;
  ctx.beginPath;
@@ -165,7 +175,7 @@ function crown(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function book(ctx, x, y, s, color) {
+function drawBook(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.6;
  ctx.fillRect(x - s, y - s * 0.65, s * 2, s * 1.3);
@@ -178,7 +188,22 @@ function book(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function stepFigure(ctx, x, y, s, color) {
+function drawStar(ctx, x, y, s, color, alpha) {
+ ctx.globalAlpha = alpha || 1;
+ ctx.fillStyle = color;
+ ctx.beginPath;
+ for (var i = 0; i < 10; i++) {
+ var r = i % 2 === 0 ? s : s * 0.4;
+ var a = (i * Math.PI) / 5 - Math.PI / 2;
+ if (i === 0) ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a));
+ else ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
+ }
+ ctx.closePath;
+ ctx.fill;
+ ctx.globalAlpha = 1;
+}
+
+function drawFigure(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.strokeStyle = color;
  ctx.globalAlpha = 0.7;
@@ -200,7 +225,7 @@ function stepFigure(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function musicNote(ctx, x, y, s, color) {
+function drawNote(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.55;
  ctx.beginPath;
@@ -215,7 +240,7 @@ function musicNote(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function ankh(ctx, x, y, s, color) {
+function drawAnkh(ctx, x, y, s, color) {
  ctx.strokeStyle = color;
  ctx.lineWidth = s * 0.17;
  ctx.globalAlpha = 0.65;
@@ -231,7 +256,7 @@ function ankh(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function gradCap(ctx, x, y, s, color) {
+function drawCap(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.65;
  ctx.save;
@@ -248,13 +273,13 @@ function gradCap(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function footprint(ctx, x, y, s, color) {
+function drawFoot(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.6;
  ctx.beginPath;
  ctx.ellipse(x, y, s * 0.32, s * 0.55, 0.2, 0, Math.PI * 2);
  ctx.fill;
- for (let i = 0; i < 4; i++) {
+ for (var i = 0; i < 4; i++) {
  ctx.beginPath;
  ctx.ellipse(x - s * 0.4 + i * s * 0.28, y - s * 0.62, s * 0.13, s * 0.18, 0, 0, Math.PI * 2);
  ctx.fill;
@@ -262,7 +287,7 @@ function footprint(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function shield(ctx, x, y, s, color) {
+function drawShield(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.55;
  ctx.beginPath;
@@ -277,33 +302,29 @@ function shield(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-function pillar(ctx, x, y, w, h, color) {
+function drawPillar(ctx, x, y, w, h, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.7;
- // shaft
  ctx.fillRect(x - w / 2, y - h / 2, w, h);
- // capital top
  ctx.fillRect(x - w * 0.75, y - h / 2 - w * 0.3, w * 1.5, w * 0.3);
- // base bottom
  ctx.fillRect(x - w * 0.75, y + h / 2, w * 1.5, w * 0.3);
  ctx.globalAlpha = 1;
 }
 
-// ── DRAW FUNCTIONS ─────────────────────────────────────────
+// ── PATTERN FUNCTIONS ──────────────────────────────────────
+
 function drawScholarCrown(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const sp = 80;
- const cols = Math.ceil(W / sp) + 1;
- const rows = Math.ceil(H / sp) + 1;
- for (let r = 0; r < rows; r++) {
- for (let c = 0; c < cols; c++) {
- const x = c * sp + (r % 2 === 0 ? 0 : 40);
- const y = r * sp;
- const t = (r * cols + c) % 3;
- if (t === 0) crown(ctx, x + 20, y + 22, 20, cw.p1);
- else if (t === 1) book(ctx, x + 20, y + 22, 16, cw.p2);
- else star5(ctx, x + 20, y + 22, 9, cw.p1, 0.45);
+ var sp = 80, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
+ for (var r = 0; r < rows; r++) {
+ for (var c = 0; c < cols; c++) {
+ var x = c * sp + (r % 2 === 0 ? 0 : 40);
+ var y = r * sp;
+ var t = (r * cols + c) % 3;
+ if (t === 0) drawCrown(ctx, x+20, y+22, 20, cw.p1);
+ else if (t === 1) drawBook(ctx, x+20, y+22, 16, cw.p2);
+ else drawStar(ctx, x+20, y+22, 9, cw.p1, 0.45);
  }
  }
 }
@@ -311,26 +332,24 @@ function drawScholarCrown(ctx, W, H, cw) {
 function drawYardLife(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const GL = ["Ω","Δ","Σ","Φ","Ψ","Λ","Α","Κ"];
- const sp = 75;
- const cols = Math.ceil(W / sp) + 1;
- const rows = Math.ceil(H / sp) + 1;
- for (let r = 0; r < rows; r++) {
- for (let c = 0; c < cols; c++) {
- const x = c * sp + (r % 2 === 0 ? 0 : 37);
- const y = r * sp;
- const t = (r * cols + c) % 4;
- if (t === 0) stepFigure(ctx, x + 20, y + 25, 20, cw.p1);
+ var GL = ["O","D","E","P","Y","L","A","K"];
+ var sp = 75, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
+ for (var r = 0; r < rows; r++) {
+ for (var c = 0; c < cols; c++) {
+ var x = c * sp + (r % 2 === 0 ? 0 : 37);
+ var y = r * sp;
+ var t = (r * cols + c) % 4;
+ if (t === 0) drawFigure(ctx, x+20, y+25, 20, cw.p1);
  else if (t === 1) {
  ctx.fillStyle = cw.p2;
  ctx.globalAlpha = 0.55;
  ctx.font = "bold 22px serif";
  ctx.textAlign = "center";
- ctx.fillText(GL[(r + c) % GL.length], x + 20, y + 30);
+ ctx.fillText(GL[(r+c) % GL.length], x+20, y+30);
  ctx.globalAlpha = 1;
  }
- else if (t === 2) musicNote(ctx, x + 20, y + 25, 13, cw.p1);
- else star5(ctx, x + 20, y + 25, 8, cw.p2, 0.35);
+ else if (t === 2) drawNote(ctx, x+20, y+25, 13, cw.p1);
+ else drawStar(ctx, x+20, y+25, 8, cw.p2, 0.35);
  }
  }
 }
@@ -338,33 +357,33 @@ function drawYardLife(ctx, W, H, cw) {
 function drawExcellenceGrid(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const s = 58;
+ var s = 58;
  ctx.strokeStyle = cw.p1;
  ctx.lineWidth = 1;
- for (let x = -s; x < W + s; x += s) {
- for (let y = -s; y < H + s; y += s) {
+ for (var x = -s; x < W+s; x += s) {
+ for (var y = -s; y < H+s; y += s) {
  ctx.globalAlpha = 0.22;
  ctx.beginPath;
- ctx.moveTo(x, y - s / 2);
- ctx.lineTo(x + s / 2, y);
- ctx.lineTo(x, y + s / 2);
- ctx.lineTo(x - s / 2, y);
+ ctx.moveTo(x, y - s/2);
+ ctx.lineTo(x + s/2, y);
+ ctx.lineTo(x, y + s/2);
+ ctx.lineTo(x - s/2, y);
  ctx.closePath;
  ctx.stroke;
  }
  }
  ctx.globalAlpha = 1;
- const phrases = ["HBCU PROUD","BLACK COLLEGE MADE","EDUCATED KING","CROWNED SCHOLAR","EXCELLENCE","LEGACY"];
+ var phrases = ["HBCU PROUD","BLACK COLLEGE MADE","EDUCATED KING","CROWNED SCHOLAR","EXCELLENCE","LEGACY"];
  ctx.textAlign = "center";
- let pi = 0;
- for (let r = 0; r < Math.ceil(H / 65) + 1; r++) {
- for (let c = 0; c < Math.ceil(W / 115) + 1; c++) {
- const x = c * 115 + (r % 2 === 0 ? 0 : 57);
- const y = r * 65 + 22;
- ctx.font = `bold ${r % 2 === 0 ? 13 : 11}px 'Segoe UI', sans-serif`;
+ var pi = 0;
+ for (var r = 0; r < Math.ceil(H/65)+1; r++) {
+ for (var c = 0; c < Math.ceil(W/115)+1; c++) {
+ var px = c * 115 + (r % 2 === 0 ? 0 : 57);
+ var py = r * 65 + 22;
+ ctx.font = "bold " + (r % 2 === 0 ? 13 : 11) + "px 'Segoe UI', sans-serif";
  ctx.fillStyle = pi % 2 === 0 ? cw.p1 : cw.p2;
  ctx.globalAlpha = 0.8;
- ctx.fillText(phrases[pi % phrases.length], x, y);
+ ctx.fillText(phrases[pi % phrases.length], px, py);
  pi++;
  }
  }
@@ -374,29 +393,26 @@ function drawExcellenceGrid(ctx, W, H, cw) {
 function drawDiasporaRoots(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const kenteC = [cw.p1, cw.p2, "#FFFFFF", cw.p1, cw.p2];
- const sh = 24;
- const bands = Math.ceil(H / (sh * 4));
- for (let b = 0; b < bands; b++) {
- const by = b * sh * 4;
- for (let x = 0; x < W; x += 18) {
- ctx.fillStyle = kenteC[(Math.floor(x / 18) + b) % kenteC.length];
+ var kc = [cw.p1, cw.p2, "#FFFFFF", cw.p1, cw.p2];
+ var sh = 24, bands = Math.ceil(H / (sh*4));
+ for (var b = 0; b < bands; b++) {
+ var by = b * sh * 4;
+ for (var x = 0; x < W; x += 18) {
+ ctx.fillStyle = kc[(Math.floor(x/18) + b) % kc.length];
  ctx.globalAlpha = 0.28;
  ctx.fillRect(x, by, 16, sh);
  }
  }
  ctx.globalAlpha = 1;
- const sp = 88;
- const cols = Math.ceil(W / sp) + 1;
- const rows = Math.ceil(H / sp) + 1;
- for (let r = 0; r < rows; r++) {
- for (let c = 0; c < cols; c++) {
- const x = c * sp + (r % 2 === 0 ? 0 : 44);
- const y = r * sp + 20;
- const t = (r * cols + c) % 3;
- if (t === 0) ankh(ctx, x, y, 17, cw.p1);
- else if (t === 1) gradCap(ctx, x, y, 15, cw.p2);
- else star5(ctx, x, y, 9, cw.p1, 0.45);
+ var sp = 88, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
+ for (var r = 0; r < rows; r++) {
+ for (var c = 0; c < cols; c++) {
+ var ex = c * sp + (r % 2 === 0 ? 0 : 44);
+ var ey = r * sp + 20;
+ var t = (r * cols + c) % 3;
+ if (t === 0) drawAnkh(ctx, ex, ey, 17, cw.p1);
+ else if (t === 1) drawCap(ctx, ex, ey, 15, cw.p2);
+ else drawStar(ctx, ex, ey, 9, cw.p1, 0.45);
  }
  }
 }
@@ -404,10 +420,9 @@ function drawDiasporaRoots(ctx, W, H, cw) {
 function drawLegacyStripe(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const sw = 55;
- const cols = Math.ceil(W / sw) + 1;
- for (let c = 0; c < cols; c++) {
- const x = c * sw;
+ var sw = 55, cols = Math.ceil(W/sw)+1;
+ for (var c = 0; c < cols; c++) {
+ var x = c * sw;
  if (c % 2 === 0) {
  ctx.fillStyle = cw.p1;
  ctx.globalAlpha = 0.1;
@@ -421,24 +436,25 @@ function drawLegacyStripe(ctx, W, H, cw) {
  ctx.lineTo(x, H);
  ctx.stroke;
  ctx.globalAlpha = 1;
- const rowCount = Math.ceil(H / 52);
- for (let r = 0; r < rowCount; r++) {
- const y = r * 52 + 26;
- const icons = ["🎓","📖","👑","🔦"];
+ var icons = ["G","B","K","T"];
+ var rowCount = Math.ceil(H/52);
+ for (var r = 0; r < rowCount; r++) {
+ var y = r * 52 + 26;
  ctx.font = "17px serif";
  ctx.textAlign = "center";
+ ctx.fillStyle = cw.p1;
  ctx.globalAlpha = 0.38;
- ctx.fillText(icons[(c + r) % icons.length], x + sw / 2, y);
+ ctx.fillText(icons[(c+r) % icons.length], x + sw/2, y);
  ctx.globalAlpha = 1;
  }
  }
- const words = ["FIRST GENERATION","LEGACY","EXCELLENCE","HBCU PROUD","SCHOLAR"];
+ var words = ["FIRST GENERATION","LEGACY","EXCELLENCE","HBCU PROUD","SCHOLAR"];
  ctx.font = "bold 10px 'Segoe UI', sans-serif";
  ctx.textAlign = "center";
  ctx.fillStyle = cw.p2;
  ctx.globalAlpha = 0.45;
- for (let r = 0; r < Math.ceil(H / 75); r++) {
- ctx.fillText(words[r % words.length], W / 2, r * 75 + 48);
+ for (var wr = 0; wr < Math.ceil(H/75); wr++) {
+ ctx.fillText(words[wr % words.length], W/2, wr * 75 + 48);
  }
  ctx.globalAlpha = 1;
 }
@@ -446,22 +462,17 @@ function drawLegacyStripe(ctx, W, H, cw) {
 function drawConstellation(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W * 0.65);
- grad.addColorStop(0, cw.p1 + "33");
- grad.addColorStop(1, "transparent");
- ctx.fillStyle = grad;
- ctx.fillRect(0, 0, W, H);
- const stars = ;
- let seed = 42;
+ var stars = ;
+ var seed = 42;
  function rnd { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
- for (let i = 0; i < 65; i++) {
+ for (var i = 0; i < 65; i++) {
  stars.push({ x: rnd * W, y: rnd * H, r: rnd * 2.8 + 0.8 });
  }
  ctx.strokeStyle = cw.p1;
  ctx.lineWidth = 0.7;
- for (let i = 0; i < stars.length; i++) {
- for (let j = i + 1; j < stars.length; j++) {
- const d = Math.hypot(stars[j].x - stars[i].x, stars[j].y - stars[i].y);
+ for (var i = 0; i < stars.length; i++) {
+ for (var j = i+1; j < stars.length; j++) {
+ var d = Math.hypot(stars[j].x - stars[i].x, stars[j].y - stars[i].y);
  if (d < 110) {
  ctx.globalAlpha = 0.18;
  ctx.beginPath;
@@ -472,59 +483,35 @@ function drawConstellation(ctx, W, H, cw) {
  }
  }
  ctx.globalAlpha = 1;
- stars.forEach(s => {
- ctx.fillStyle = s.r > 2.2 ? cw.p1 : cw.p2;
- ctx.globalAlpha = s.r > 2.2 ? 0.95 : 0.5;
+ for (var i = 0; i < stars.length; i++) {
+ ctx.fillStyle = stars[i].r > 2.2 ? cw.p1 : cw.p2;
+ ctx.globalAlpha = stars[i].r > 2.2 ? 0.95 : 0.5;
  ctx.beginPath;
- ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+ ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, Math.PI * 2);
  ctx.fill;
- });
+ }
  ctx.globalAlpha = 1;
- const labels = ["FIRST GENERATION","LEGACY","EXCELLENCE","CROWNED SCHOLAR"];
+ var labels = ["FIRST GENERATION","LEGACY","EXCELLENCE","CROWNED SCHOLAR"];
  ctx.font = "bold 9px 'Segoe UI', sans-serif";
  ctx.textAlign = "center";
  ctx.fillStyle = cw.p1;
  ctx.globalAlpha = 0.45;
- labels.forEach((l, i) => {
- const s = stars[i * 14];
- if (s) ctx.fillText(l, s.x, s.y - 9);
- });
+ for (var i = 0; i < labels.length; i++) {
+ var s = stars[i * 14];
+ if (s) ctx.fillText(labels[i], s.x, s.y - 9);
+ }
  ctx.globalAlpha = 1;
 }
 
 function drawStepStroll(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const sp = 70;
- const cols = Math.ceil(W / sp) + 1;
- const rows = Math.ceil(H / sp) + 1;
- for (let r = 0; r < rows; r++) {
- for (let c = 0; c < cols; c++) {
- const x = c * sp + (r % 2 === 0 ? 0 : 35);
- const y = r * sp;
- const t = (r * cols + c) % 3;
- if (t === 0) footprint(ctx, x + 22, y + 22, 14, cw.p1);
- else if (t === 1) shield(ctx, x + 22, y + 22, 16, cw.p2);
- else star5(ctx, x + 22, y + 22, 9, cw.p1, 0.38);
- }
- }
- for (let x = 0; x < W; x += 18) {
- ctx.fillStyle = x % 54 === 0 ? cw.p1 : cw.p2;
- ctx.globalAlpha = 0.22;
- ctx.beginPath;
- ctx.arc(x, H / 2, 3, 0, Math.PI * 2);
- ctx.fill;
- }
- ctx.globalAlpha = 1;
-}
-
-function drawPillars(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- const pw = 36;
- const gap = 52;
- const total = pw + gap;
- const cols = Math.ceil(W / total) + 1;
- const words = ["TRUTH","SERVICE","EXCELLENCE","LEGACY","PRIDE"];
- for (let c = 0; c < cols; c++) {
- const x = c * total + pw
+ var sp = 70, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
+ for (var r = 0; r < rows; r++) {
+ for (var c = 0; c < cols; c++) {
+ var x = c * sp + (r % 2 === 0 ? 0 : 35);
+ var y = r * sp;
+ var t = (r * cols + c) % 3;
+ if (t === 0) drawFoot(ctx, x+22, y+22, 14, cw.p1);
+ else if (t === 1) drawShield(ctx, x+22, y+22, 16, cw.p2);
+ else drawStar(ctx, x+22, y+22, 9, cw.p1, 
