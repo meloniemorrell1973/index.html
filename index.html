@@ -17,7 +17,7 @@ header h1 { font-size: 2rem; color: #c9a84c; letter-spacing: 3px; }
 header p { color: #d4b483; margin-top: 6px; font-size: 0.95rem; }
 .gallery {
  display: grid;
- grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
  gap: 24px;
  padding: 40px;
  max-width: 1400px;
@@ -29,7 +29,17 @@ header p { color: #d4b483; margin-top: 6px; font-size: 0.95rem; }
  border: 1px solid #2a2a2a;
  overflow: hidden;
 }
-.card canvas { display: block; width: 100%; height: 260px; }
+.card:hover { border-color: #c9a84c; }
+.pattern-box {
+ width: 100%;
+ height: 260px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 3rem;
+ position: relative;
+ overflow: hidden;
+}
 .card-info { padding: 16px 18px; }
 .card-info h3 { color: #c9a84c; font-size: 0.95rem; letter-spacing: 1px; margin-bottom: 4px; }
 .card-info p { color: #777; font-size: 0.8rem; margin-bottom: 12px; }
@@ -47,8 +57,104 @@ header p { color: #d4b483; margin-top: 6px; font-size: 0.95rem; }
  border-radius: 8px;
  color: #c9a84c; font-size: 0.82rem; cursor: pointer;
 }
-.btn-cw:hover { background: #3d1f00; }
-@media(max-width:600px){ .gallery { padding: 16px; } }
+
+/ PATTERN 1 - SCHOLAR CROWN /
+.p1 { background: #0d0d0d;
+ background-image:
+ radial-gradient(circle, #c9a84c 2px, transparent 2px),
+ radial-gradient(circle, #f5f5f0 1px, transparent 1px);
+ background-size: 40px 40px, 20px 20px;
+ background-position: 0 0, 10px 10px;
+}
+
+/ PATTERN 2 - YARD LIFE /
+.p2 { background: #001f3f;
+ background-image:
+ repeating-linear-gradient(45deg, #FFD700 0px, #FFD700 2px, transparent 2px, transparent 20px),
+ repeating-linear-gradient(-45deg, #FFFFFF 0px, #FFFFFF 1px, transparent 1px, transparent 20px);
+}
+
+/ PATTERN 3 - BLACK EXCELLENCE GRID /
+.p3 { background: #3d0010;
+ background-image:
+ linear-gradient(#F5E6C8 1px, transparent 1px),
+ linear-gradient(90deg, #F5E6C8 1px, transparent 1px),
+ linear-gradient(#c9a84c 1px, transparent 1px),
+ linear-gradient(90deg, #c9a84c 1px, transparent 1px);
+ background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+ background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/ PATTERN 4 - DIASPORA ROOTS /
+.p4 { background: #0d0d0d;
+ background-image:
+ repeating-linear-gradient(0deg, #FFD700 0px, #FFD700 4px, transparent 4px, transparent 20px),
+ repeating-linear-gradient(0deg, #CC0000 8px, #CC0000 12px, transparent 12px, transparent 20px),
+ repeating-linear-gradient(0deg, #008000 16px, #008000 20px, transparent 20px, transparent 20px);
+ background-size: 100% 20px;
+}
+
+/ PATTERN 5 - LEGACY STRIPE /
+.p5 { background: #003A63;
+ background-image:
+ repeating-linear-gradient(90deg,
+ #FFD700 0px, #FFD700 8px,
+ #003A63 8px, #003A63 40px,
+ #FFFFFF 40px, #FFFFFF 44px,
+ #003A63 44px, #003A63 80px
+ );
+}
+
+/ PATTERN 6 - CONSTELLATION /
+.p6 { background: #020818;
+ background-image:
+ radial-gradient(circle, #c9a84c 2px, transparent 2px),
+ radial-gradient(circle, #FFFFFF 1px, transparent 1px),
+ radial-gradient(circle, #c9a84c 1px, transparent 1px);
+ background-size: 80px 80px, 40px 40px, 20px 20px;
+ background-position: 0 0, 20px 20px, 10px 10px;
+}
+
+/ PATTERN 7 - STEP AND STROLL /
+.p7 { background: #2d0057;
+ background-image:
+ repeating-linear-gradient(45deg,
+ #FFD700 0px, #FFD700 3px,
+ transparent 3px, transparent 15px
+ ),
+ repeating-linear-gradient(-45deg,
+ #FFFFFF 0px, #FFFFFF 1px,
+ transparent 1px, transparent 15px
+ );
+}
+
+/ PATTERN 8 - PILLARS OF EXCELLENCE */
+.p8 { background: #F5F0E8;
+ background-image:
+ repeating-linear-gradient(90deg,
+ #c9a84c 0px, #c9a84c 12px,
+ #F5F0E8 12px, #F5F0E8 50px
+ ),
+ repeating-linear-gradient(0deg,
+ #1a1a1a 0px, #1a1a1a 1px,
+ transparent 1px, transparent 40px
+ );
+}
+
+.pattern-label {
+ position: absolute;
+ bottom: 10px;
+ left: 50%;
+ transform: translateX(-50%);
+ background: rgba(0,0,0,0.6);
+ color: #c9a84c;
+ font-size: 0.7rem;
+ font-weight: 700;
+ letter-spacing: 2px;
+ padding: 4px 12px;
+ border-radius: 20px;
+ white-space: nowrap;
+}
 </style>
 </head>
 <body>
@@ -58,503 +164,118 @@ header p { color: #d4b483; margin-top: 6px; font-size: 0.95rem; }
  <p>HBCU Pride Original Pattern Collection - 8 Exclusive Designs</p>
 </header>
 
-<div class="gallery" id="gallery"></div>
+<div class="gallery">
 
-<script>
+ <div class="card">
+ <div class="pattern-box p1">
+ <span class="pattern-label">SCHOLAR CROWN</span>
+ </div>
+ <div class="card-info">
+ <h3>SCHOLAR CROWN</h3>
+ <p>Royalty meets academic excellence</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-var activeCW = [0,0,0,0,0,0,0,0];
+ <div class="card">
+ <div class="pattern-box p2">
+ <span class="pattern-label">YARD LIFE</span>
+ </div>
+ <div class="card-info">
+ <h3>YARD LIFE</h3>
+ <p>HBCU campus culture celebration</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-var DESIGNS = [
- { name:"SCHOLAR CROWN", vibe:"Royalty meets academic excellence",
- colorways:[
- {bg:"#0d0d0d",p1:"#c9a84c",p2:"#f5f5f0"},
- {bg:"#003A63",p1:"#FFD700",p2:"#FFFFFF"},
- {bg:"#5a0020",p1:"#c9a84c",p2:"#FFFFFF"}
- ], draw: drawScholarCrown },
- { name:"YARD LIFE", vibe:"HBCU campus culture celebration",
- colorways:[
- {bg:"#001f3f",p1:"#FFD700",p2:"#FFFFFF"},
- {bg:"#1B4332",p1:"#c9a84c",p2:"#FFFFFF"},
- {bg:"#2d0057",p1:"#FFD700",p2:"#E8C8FF"}
- ], draw: drawYardLife },
- { name:"BLACK EXCELLENCE GRID", vibe:"Bold streetwear meets academic pride",
- colorways:[
- {bg:"#3d0010",p1:"#F5E6C8",p2:"#c9a84c"},
- {bg:"#0d0d0d",p1:"#c9a84c",p2:"#FFFFFF"},
- {bg:"#001f3f",p1:"#FFFFFF",p2:"#FFD700"}
- ], draw: drawExcellenceGrid },
- { name:"DIASPORA ROOTS", vibe:"Pan-African heritage meets Black college pride",
- colorways:[
- {bg:"#0d0d0d",p1:"#FFD700",p2:"#CC0000"},
- {bg:"#1a0a00",p1:"#c9a84c",p2:"#4a7c59"},
- {bg:"#2d1a00",p1:"#FFD700",p2:"#008000"}
- ], draw: drawDiasporaRoots },
- { name:"LEGACY STRIPE", vibe:"Classic collegiate with cultural depth",
- colorways:[
- {bg:"#003A63",p1:"#FFD700",p2:"#FFFFFF"},
- {bg:"#8B0000",p1:"#F5E6C8",p2:"#c9a84c"},
- {bg:"#1B4332",p1:"#FFFFFF",p2:"#c9a84c"}
- ], draw: drawLegacyStripe },
- { name:"CONSTELLATION SCHOLAR", vibe:"Dreamy, aspirational, deeply personal",
- colorways:[
- {bg:"#020818",p1:"#c9a84c",p2:"#FFFFFF"},
- {bg:"#0d0033",p1:"#FFD700",p2:"#C8A9FA"},
- {bg:"#001433",p1:"#87CEEB",p2:"#FFFFFF"}
- ], draw: drawConstellation },
- { name:"STEP AND STROLL", vibe:"Greek life celebration",
- colorways:[
- {bg:"#2d0057",p1:"#FFD700",p2:"#FFFFFF"},
- {bg:"#5a0020",p1:"#FFD700",p2:"#FFFFFF"},
- {bg:"#0d0d0d",p1:"#c9a84c",p2:"#FFFFFF"}
- ], draw: drawStepStroll },
- { name:"PILLARS OF EXCELLENCE", vibe:"Timeless institutional pride",
- colorways:[
- {bg:"#F5F0E8",p1:"#1a1a1a",p2:"#c9a84c"},
- {bg:"#c9a84c",p1:"#1a0a00",p2:"#FFFFFF"},
- {bg:"#0d0d0d",p1:"#F5F0E8",p2:"#c9a84c"}
- ], draw: drawPillars }
-];
+ <div class="card">
+ <div class="pattern-box p3">
+ <span class="pattern-label">BLACK EXCELLENCE GRID</span>
+ </div>
+ <div class="card-info">
+ <h3>BLACK EXCELLENCE GRID</h3>
+ <p>Bold streetwear meets academic pride</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-function buildGallery {
- var gallery = document.getElementById("gallery");
- for (var i = 0; i < DESIGNS.length; i++) {
- var d = DESIGNS[i];
- var card = document.createElement("div");
- card.className = "card";
- card.innerHTML =
- '<canvas id="c' + i + '" width="640" height="400"></canvas>' +
- '<div class="card-info">' +
- '<h3>' + d.name + '</h3>' +
- '<p>' + d.vibe + '</p>' +
- '<div class="card-actions">' +
- '<button class="btn-dl" onclick="downloadPattern(' + i + ')">Download</button>' +
- '<button class="btn-cw" onclick="nextColorway(' + i + ')">Next Color</button>' +
- '</div></div>';
- gallery.appendChild(card);
- renderPattern(i);
- }
-}
+ <div class="card">
+ <div class="pattern-box p4">
+ <span class="pattern-label">DIASPORA ROOTS</span>
+ </div>
+ <div class="card-info">
+ <h3>DIASPORA ROOTS</h3>
+ <p>Pan-African heritage meets Black college pride</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-function renderPattern(i) {
- var canvas = document.getElementById("c" + i);
- if (!canvas) return;
- var ctx = canvas.getContext("2d");
- var cw = DESIGNS[i].colorways[activeCW[i]];
- DESIGNS[i].draw(ctx, 640, 400, cw);
-}
+ <div class="card">
+ <div class="pattern-box p5">
+ <span class="pattern-label">LEGACY STRIPE</span>
+ </div>
+ <div class="card-info">
+ <h3>LEGACY STRIPE</h3>
+ <p>Classic collegiate with cultural depth</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-function nextColorway(i) {
- activeCW[i] = (activeCW[i] + 1) % DESIGNS[i].colorways.length;
- renderPattern(i);
-}
+ <div class="card">
+ <div class="pattern-box p6">
+ <span class="pattern-label">CONSTELLATION SCHOLAR</span>
+ </div>
+ <div class="card-info">
+ <h3>CONSTELLATION SCHOLAR</h3>
+ <p>Dreamy, aspirational, deeply personal</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-function downloadPattern(i) {
- var canvas = document.getElementById("c" + i);
- var link = document.createElement("a");
- link.download = DESIGNS[i].name.replace(/\s+/g, "-") + ".png";
- link.href = canvas.toDataURL("image/png");
- link.click;
-}
+ <div class="card">
+ <div class="pattern-box p7">
+ <span class="pattern-label">STEP AND STROLL</span>
+ </div>
+ <div class="card-info">
+ <h3>STEP AND STROLL</h3>
+ <p>Greek life celebration</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-// ── SHAPE HELPERS ──────────────────────────────────────────
+ <div class="card">
+ <div class="pattern-box p8">
+ <span class="pattern-label">PILLARS OF EXCELLENCE</span>
+ </div>
+ <div class="card-info">
+ <h3>PILLARS OF EXCELLENCE</h3>
+ <p>Timeless institutional pride</p>
+ <div class="card-actions">
+ <button class="btn-dl">Download</button>
+ <button class="btn-cw">Next Color</button>
+ </div>
+ </div>
+ </div>
 
-function drawCrown(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.85;
- ctx.beginPath;
- ctx.moveTo(x - s, y + s  0.5);
- ctx.lineTo(x - s, y - s  0.1);
- ctx.lineTo(x - s  0.35, y + s  0.15);
- ctx.lineTo(x, y - s);
- ctx.lineTo(x + s  0.35, y + s  0.15);
- ctx.lineTo(x + s, y - s  0.1);
- ctx.lineTo(x + s, y + s  0.5);
- ctx.closePath;
- ctx.fill;
- ctx.fillRect(x - s, y + s  0.4, s  2, s  0.25);
- ctx.globalAlpha = 1;
-}
-
-function drawBook(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.6;
- ctx.fillRect(x - s, y - s  0.65, s  2, s  1.3);
- ctx.strokeStyle = color;
- ctx.lineWidth = 1.5;
- ctx.beginPath;
- ctx.moveTo(x, y - s  0.65);
- ctx.lineTo(x, y + s  0.65);
- ctx.stroke;
- ctx.globalAlpha = 1;
-}
-
-function drawStar(ctx, x, y, s, color, alpha) {
- ctx.globalAlpha = alpha || 1;
- ctx.fillStyle = color;
- ctx.beginPath;
- for (var i = 0; i < 10; i++) {
- var r = i % 2 === 0 ? s : s  0.4;
- var a = (i  Math.PI) / 5 - Math.PI / 2;
- if (i === 0) ctx.moveTo(x + r  Math.cos(a), y + r  Math.sin(a));
- else ctx.lineTo(x + r  Math.cos(a), y + r  Math.sin(a));
- }
- ctx.closePath;
- ctx.fill;
- ctx.globalAlpha = 1;
-}
-
-function drawFigure(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.strokeStyle = color;
- ctx.globalAlpha = 0.7;
- ctx.beginPath;
- ctx.arc(x, y - s  0.7, s  0.2, 0, Math.PI  2);
- ctx.fill;
- ctx.fillRect(x - s  0.08, y - s  0.5, s  0.16, s  0.45);
- ctx.lineWidth = s  0.1;
- ctx.beginPath;
- ctx.moveTo(x - s  0.08, y - s  0.28);
- ctx.lineTo(x - s  0.45, y - s  0.55);
- ctx.moveTo(x + s  0.08, y - s  0.28);
- ctx.lineTo(x + s  0.45, y - s  0.55);
- ctx.moveTo(x, y - s  0.05);
- ctx.lineTo(x - s  0.28, y + s  0.48);
- ctx.moveTo(x, y - s  0.05);
- ctx.lineTo(x + s  0.28, y + s  0.48);
- ctx.stroke;
- ctx.globalAlpha = 1;
-}
-
-function drawNote(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.55;
- ctx.beginPath;
- ctx.arc(x - s  0.18, y + s  0.35, s  0.32, 0, Math.PI  2);
- ctx.fill;
- ctx.fillRect(x + s  0.1, y - s  0.55, s  0.15, s  0.9);
- ctx.beginPath;
- ctx.arc(x + s  0.18, y + s  0.35, s  0.32, 0, Math.PI  2);
- ctx.fill;
- ctx.fillRect(x + s  0.32, y - s  0.55, s  0.15, s  0.9);
- ctx.fillRect(x + s  0.1, y - s  0.55, s  0.37, s  0.15);
- ctx.globalAlpha = 1;
-}
-
-function drawAnkh(ctx, x, y, s, color) {
- ctx.strokeStyle = color;
- ctx.lineWidth = s  0.17;
- ctx.globalAlpha = 0.65;
- ctx.beginPath;
- ctx.moveTo(x, y - s  0.25);
- ctx.lineTo(x, y + s);
- ctx.moveTo(x - s  0.48, y + s  0.1);
- ctx.lineTo(x + s  0.48, y + s  0.1);
- ctx.stroke;
- ctx.beginPath;
- ctx.arc(x, y - s  0.28, s  0.33, 0, Math.PI  2);
- ctx.stroke;
- ctx.globalAlpha = 1;
-}
-
-function drawCap(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.65;
- ctx.save;
- ctx.translate(x, y);
- ctx.fillRect(-s, -s  0.18, s  2, s  0.36);
- ctx.beginPath;
- ctx.moveTo(0, -s  0.5);
- ctx.lineTo(s  0.48, 0);
- ctx.lineTo(0, s  0.5);
- ctx.lineTo(-s  0.48, 0);
- ctx.closePath;
- ctx.fill;
- ctx.restore;
- ctx.globalAlpha = 1;
-}
-
-function drawFoot(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.6;
- ctx.beginPath;
- ctx.ellipse(x, y, s  0.32, s  0.55, 0.2, 0, Math.PI  2);
- ctx.fill;
- for (var i = 0; i < 4; i++) {
- ctx.beginPath;
- ctx.ellipse(x - s  0.4 + i  s  0.28, y - s  0.62, s  0.13, s  0.18, 0, 0, Math.PI  2);
- ctx.fill;
- }
- ctx.globalAlpha = 1;
-}
-
-function drawShield(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.55;
- ctx.beginPath;
- ctx.moveTo(x, y - s);
- ctx.lineTo(x + s  0.75, y - s  0.4);
- ctx.lineTo(x + s  0.75, y + s  0.2);
- ctx.quadraticCurveTo(x + s  0.75, y + s, x, y + s);
- ctx.quadraticCurveTo(x - s  0.75, y + s, x - s  0.75, y + s  0.2);
- ctx.lineTo(x - s  0.75, y - s  0.4);
- ctx.closePath;
- ctx.fill;
- ctx.globalAlpha = 1;
-}
-
-function drawPillar(ctx, x, y, w, h, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.7;
- ctx.fillRect(x - w / 2, y - h / 2, w, h);
- ctx.fillRect(x - w  0.75, y - h / 2 - w  0.3, w  1.5, w  0.3);
- ctx.fillRect(x - w  0.75, y + h / 2, w  1.5, w  0.3);
- ctx.globalAlpha = 1;
-}
-
-// ── PATTERN FUNCTIONS ──────────────────────────────────────
-
-function drawScholarCrown(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var sp = 80, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
- for (var r = 0; r < rows; r++) {
- for (var c = 0; c < cols; c++) {
- var x = c  sp + (r % 2 === 0 ? 0 : 40);
- var y = r  sp;
- var t = (r  cols + c) % 3;
- if (t === 0) drawCrown(ctx, x+20, y+22, 20, cw.p1);
- else if (t === 1) drawBook(ctx, x+20, y+22, 16, cw.p2);
- else drawStar(ctx, x+20, y+22, 9, cw.p1, 0.45);
- }
- }
-}
-
-function drawYardLife(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var GL = ["O","D","E","P","Y","L","A","K"];
- var sp = 75, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
- for (var r = 0; r < rows; r++) {
- for (var c = 0; c < cols; c++) {
- var x = c  sp + (r % 2 === 0 ? 0 : 37);
- var y = r  sp;
- var t = (r  cols + c) % 4;
- if (t === 0) drawFigure(ctx, x+20, y+25, 20, cw.p1);
- else if (t === 1) {
- ctx.fillStyle = cw.p2;
- ctx.globalAlpha = 0.55;
- ctx.font = "bold 22px serif";
- ctx.textAlign = "center";
- ctx.fillText(GL[(r+c) % GL.length], x+20, y+30);
- ctx.globalAlpha = 1;
- }
- else if (t === 2) drawNote(ctx, x+20, y+25, 13, cw.p1);
- else drawStar(ctx, x+20, y+25, 8, cw.p2, 0.35);
- }
- }
-}
-
-function drawExcellenceGrid(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var s = 58;
- ctx.strokeStyle = cw.p1;
- ctx.lineWidth = 1;
- for (var gx = -s; gx < W+s; gx += s) {
- for (var gy = -s; gy < H+s; gy += s) {
- ctx.globalAlpha = 0.22;
- ctx.beginPath;
- ctx.moveTo(gx, gy - s/2);
- ctx.lineTo(gx + s/2, gy);
- ctx.lineTo(gx, gy + s/2);
- ctx.lineTo(gx - s/2, gy);
- ctx.closePath;
- ctx.stroke;
- }
- }
- ctx.globalAlpha = 1;
- var phrases = ["HBCU PROUD","BLACK COLLEGE MADE","EDUCATED KING","CROWNED SCHOLAR","EXCELLENCE","LEGACY"];
- ctx.textAlign = "center";
- var pi = 0;
- for (var r = 0; r < Math.ceil(H/65)+1; r++) {
- for (var c = 0; c < Math.ceil(W/115)+1; c++) {
- var px = c  115 + (r % 2 === 0 ? 0 : 57);
- var py = r  65 + 22;
- ctx.font = "bold " + (r % 2 === 0 ? 13 : 11) + "px 'Segoe UI', sans-serif";
- ctx.fillStyle = pi % 2 === 0 ? cw.p1 : cw.p2;
- ctx.globalAlpha = 0.8;
- ctx.fillText(phrases[pi % phrases.length], px, py);
- pi++;
- }
- }
- ctx.globalAlpha = 1;
-}
-
-function drawDiasporaRoots(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var kc = [cw.p1, cw.p2, "#FFFFFF", cw.p1, cw.p2];
- var sh = 24, bands = Math.ceil(H / (sh4));
- for (var b = 0; b < bands; b++) {
- var by = b  sh  4;
- for (var kx = 0; kx < W; kx += 18) {
- ctx.fillStyle = kc[(Math.floor(kx/18) + b) % kc.length];
- ctx.globalAlpha = 0.28;
- ctx.fillRect(kx, by, 16, sh);
- }
- }
- ctx.globalAlpha = 1;
- var sp = 88, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
- for (var r = 0; r < rows; r++) {
- for (var c = 0; c < cols; c++) {
- var ex = c  sp + (r % 2 === 0 ? 0 : 44);
- var ey = r  sp + 20;
- var t = (r  cols + c) % 3;
- if (t === 0) drawAnkh(ctx, ex, ey, 17, cw.p1);
- else if (t === 1) drawCap(ctx, ex, ey, 15, cw.p2);
- else drawStar(ctx, ex, ey, 9, cw.p1, 0.45);
- }
- }
-}
-
-function drawLegacyStripe(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var sw = 55, cols = Math.ceil(W/sw)+1;
- for (var c = 0; c < cols; c++) {
- var x = c  sw;
- if (c % 2 === 0) {
- ctx.fillStyle = cw.p1;
- ctx.globalAlpha = 0.1;
- ctx.fillRect(x, 0, sw, H);
- }
- ctx.strokeStyle = cw.p1;
- ctx.globalAlpha = 0.15;
- ctx.lineWidth = 1;
- ctx.beginPath;
- ctx.moveTo(x, 0);
- ctx.lineTo(x, H);
- ctx.stroke;
- ctx.globalAlpha = 1;
- var letters = ["G","B","K","T"];
- var rowCount = Math.ceil(H/52);
- for (var r = 0; r < rowCount; r++) {
- var y = r  52 + 26;
- ctx.font = "17px serif";
- ctx.textAlign = "center";
- ctx.fillStyle = cw.p1;
- ctx.globalAlpha = 0.38;
- ctx.fillText(letters[(c+r) % letters.length], x + sw/2, y);
- ctx.globalAlpha = 1;
- }
- }
- var words = ["FIRST GENERATION","LEGACY","EXCELLENCE","HBCU PROUD","SCHOLAR"];
- ctx.font = "bold 10px 'Segoe UI', sans-serif";
- ctx.textAlign = "center";
- ctx.fillStyle = cw.p2;
- ctx.globalAlpha = 0.45;
- for (var wr = 0; wr < Math.ceil(H/75); wr++) {
- ctx.fillText(words[wr % words.length], W/2, wr  75 + 48);
- }
- ctx.globalAlpha = 1;
-}
-
-function drawConstellation(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var stars = ;
- var seed = 42;
- function rnd { seed = (seed  16807) % 2147483647; return (seed - 1) / 2147483646; }
- for (var i = 0; i < 65; i++) {
- stars.push({ x: rnd  W, y: rnd  H, r: rnd  2.8 + 0.8 });
- }
- ctx.strokeStyle = cw.p1;
- ctx.lineWidth = 0.7;
- for (var i = 0; i < stars.length; i++) {
- for (var j = i+1; j < stars.length; j++) {
- var d = Math.hypot(stars[j].x - stars[i].x, stars[j].y - stars[i].y);
- if (d < 110) {
- ctx.globalAlpha = 0.18;
- ctx.beginPath;
- ctx.moveTo(stars[i].x, stars[i].y);
- ctx.lineTo(stars[j].x, stars[j].y);
- ctx.stroke;
- }
- }
- }
- ctx.globalAlpha = 1;
- for (var i = 0; i < stars.length; i++) {
- ctx.fillStyle = stars[i].r > 2.2 ? cw.p1 : cw.p2;
- ctx.globalAlpha = stars[i].r > 2.2 ? 0.95 : 0.5;
- ctx.beginPath;
- ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, Math.PI  2);
- ctx.fill;
- }
- ctx.globalAlpha = 1;
- var labels = ["FIRST GENERATION","LEGACY","EXCELLENCE","CROWNED SCHOLAR"];
- ctx.font = "bold 9px 'Segoe UI', sans-serif";
- ctx.textAlign = "center";
- ctx.fillStyle = cw.p1;
- ctx.globalAlpha = 0.45;
- for (var i = 0; i < labels.length; i++) {
- var s = stars[i  14];
- if (s) ctx.fillText(labels[i], s.x, s.y - 9);
- }
- ctx.globalAlpha = 1;
-}
-
-function drawStepStroll(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var sp = 70, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
- for (var r = 0; r < rows; r++) {
- for (var c = 0; c < cols; c++) {
- var x = c  sp + (r % 2 === 0 ? 0 : 35);
- var y = r  sp;
- var t = (r  cols + c) % 3;
- if (t === 0) drawFoot(ctx, x+22, y+22, 14, cw.p1);
- else if (t === 1) drawShield(ctx, x+22, y+22, 16, cw.p2);
- else drawStar(ctx, x+22, y+22, 9, cw.p1, 0.38);
- }
- }
- for (var dx = 0; dx < W; dx += 18) {
- ctx.fillStyle = dx % 54 === 0 ? cw.p1 : cw.p2;
- ctx.globalAlpha = 0.22;
- ctx.beginPath;
- ctx.arc(dx, H/2, 3, 0, Math.PI  2);
- ctx.fill;
- }
- ctx.globalAlpha = 1;
-}
-
-function drawPillars(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- var pw = 36, gap = 52, total = pw + gap;
- var cols = Math.ceil(W / total) + 2;
- var words = ["TRUTH","SERVICE","EXCELLENCE","LEGACY","PRIDE"];
- for (var c = 0; c < cols; c++) {
- var x = c  total + 20;
- drawPillar(ctx, x, H/2, pw, H * 0.65, cw.p1);
- ctx.fillStyle = cw.p2;
- ctx.globalAlpha = 0.6;
- ctx.font = "bold 9px 'Segoe UI', sans-serif";
- ctx.textAlign = "center";
- ctx.fillText(words[c % words.length], x, H/2 + 6);
- ctx.globalAlpha = 1;
- }
- ctx.font = "bold 14px 'Segoe UI', sans-serif";
- ctx.textAlign = "center";
- ctx.fillStyle = cw.p2;
- ctx.globalAlpha = 0.35;
- ctx.fillText("HBCU PROUD", W/2, 30);
- ctx.fillText("PILLARS OF EXCELLENCE", W/2, H - 16);
- ctx.globalAlpha = 1;
-}
-
-// ── LAUNCH ─────────────────────────────────────────────────
-buildGallery();
-
-</script>
-</body>
-</html>
+</div>
