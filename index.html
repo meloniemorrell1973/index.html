@@ -1,405 +1,3 @@
-Here's a fully functional interactive HBCU hoodie mockup builder in HTML/CSS/JavaScript. Copy and paste this entire block into a file called index.html and open it in any browser:
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>HBCU Pride Patterns | Nubian Pride Marketplace</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
- font-family: 'Segoe UI', sans-serif;
- background: #0d0d0d;
- color: #f5f5f5;
- min-height: 100vh;
-}
-
-header {
- background: linear-gradient(135deg, #1a0a00, #3d1f00);
- padding: 24px 40px;
- text-align: center;
- border-bottom: 3px solid #c9a84c;
-}
-
-header h1 {
- font-size: 2rem;
- color: #c9a84c;
- letter-spacing: 3px;
-}
-
-header p {
- color: #d4b483;
- margin-top: 6px;
- font-size: 0.95rem;
-}
-
-.gallery {
- display: grid;
- grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
- gap: 28px;
- padding: 40px;
- max-width: 1400px;
- margin: 0 auto;
-}
-
-.pattern-card {
- background: #1a1a1a;
- border-radius: 16px;
- border: 1px solid #2a2a2a;
- overflow: hidden;
- transition: transform 0.3s, border-color 0.3s;
-}
-
-.pattern-card:hover {
- transform: translateY(-4px);
- border-color: #c9a84c;
-}
-
-.canvas-container {
- position: relative;
- width: 100%;
- height: 320px;
- overflow: hidden;
-}
-
-.canvas-container canvas {
- width: 100%;
- height: 100%;
-}
-
-.pattern-info {
- padding: 18px 20px;
-}
-
-.pattern-info h3 {
- color: #c9a84c;
- font-size: 1rem;
- letter-spacing: 1px;
- margin-bottom: 6px;
-}
-
-.pattern-info p {
- color: #888;
- font-size: 0.82rem;
- line-height: 1.5;
- margin-bottom: 12px;
-}
-
-.pattern-actions {
- display: flex;
- gap: 8px;
-}
-
-.btn-download {
- flex: 1;
- padding: 10px;
- background: linear-gradient(135deg, #c9a84c, #a8832a);
- border: none;
- border-radius: 8px;
- color: #1a0a00;
- font-weight: 700;
- font-size: 0.85rem;
- cursor: pointer;
- transition: opacity 0.2s;
-}
-
-.btn-download:hover { opacity: 0.85; }
-
-.btn-preview {
- flex: 1;
- padding: 10px;
- background: transparent;
- border: 1px solid #c9a84c;
- border-radius: 8px;
- color: #c9a84c;
- font-weight: 600;
- font-size: 0.85rem;
- cursor: pointer;
- transition: all 0.2s;
-}
-
-.btn-preview:hover { background: #3d1f00; }
-
-/* MODAL */
-.modal-overlay {
- display: none;
- position: fixed;
- inset: 0;
- background: rgba(0,0,0,0.92);
- z-index: 1000;
- justify-content: center;
- align-items: center;
- padding: 20px;
-}
-
-.modal-overlay.active { display: flex; }
-
-.modal-box {
- background: #1a1a1a;
- border-radius: 20px;
- border: 2px solid #c9a84c;
- padding: 30px;
- max-width: 700px;
- width: 100%;
- position: relative;
-}
-
-.modal-box h2 {
- color: #c9a84c;
- margin-bottom: 16px;
- font-size: 1.3rem;
-}
-
-.modal-canvas-wrap {
- width: 100%;
- height: 400px;
- border-radius: 12px;
- overflow: hidden;
- margin-bottom: 20px;
-}
-
-.modal-canvas-wrap canvas {
- width: 100%;
- height: 100%;
-}
-
-.modal-close {
- position: absolute;
- top: 16px;
- right: 20px;
- background: none;
- border: none;
- color: #c9a84c;
- font-size: 1.5rem;
- cursor: pointer;
-}
-
-.colorway-row {
- display: flex;
- gap: 8px;
- margin-bottom: 16px;
- flex-wrap: wrap;
-}
-
-.cw-btn {
- padding: 7px 14px;
- background: #2a2a2a;
- border: 1px solid #3a3a3a;
- border-radius: 8px;
- color: #ccc;
- font-size: 0.8rem;
- cursor: pointer;
- transition: all 0.2s;
-}
-
-.cw-btn:hover, .cw-btn.active {
- background: #3d1f00;
- border-color: #c9a84c;
- color: #c9a84c;
-}
-
-@media (max-width: 768px) {
- .gallery { padding: 16px; grid-template-columns: 1fr; }
- header h1 { font-size: 1.4rem; }
-}
-</style>
-</head>
-<body>
-
-<header>
- <h1>👑 NUBIAN PRIDE MARKETPLACE</h1>
- <p>HBCU Pride Original Pattern Collection - 8 Exclusive Designs</p>
-</header>
-
-<div class="gallery" id="gallery"></div>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
- <div class="modal-box">
- <button class="modal-close" onclick="closeModal">✕</button>
- <h2 id="modalTitle"></h2>
- <div class="colorway-row" id="colorwayRow"></div>
- <div class="modal-canvas-wrap">
- <canvas id="modalCanvas" width="640" height="400"></canvas>
- </div>
- <div style="display:flex;gap:10px;">
- <button class="btn-download" onclick="downloadModal">⬇ Download Full Size</button>
- <button class="btn-preview" onclick="closeModal">✕ Close</button>
- </div>
- </div>
-</div>
-
-<script>
-// ─── PATTERN DEFINITIONS ─────────────────────────────────────
-const PATTERNS = [
- {
- id: "scholar-crown",
- name: "SCHOLAR CROWN",
- emoji: "👑",
- vibe: "Royalty meets academic excellence",
- colorways: [
- { name: "Classic", bg: "#0d0d0d", primary: "#c9a84c", secondary: "#f5f5f0" },
- { name: "Royal", bg: "#003A63", primary: "#FFD700", secondary: "#FFFFFF" },
- { name: "Maroon", bg: "#5a0020", primary: "#c9a84c", secondary: "#FFFFFF" }
- ],
- draw: (ctx, W, H, cw) => drawScholarCrown(ctx, W, H, cw)
- },
- {
- id: "yard-life",
- name: "YARD LIFE",
- emoji: "✊🏾",
- vibe: "HBCU campus culture celebration",
- colorways: [
- { name: "Navy", bg: "#001f3f", primary: "#FFD700", secondary: "#FFFFFF" },
- { name: "Forest", bg: "#1B4332", primary: "#c9a84c", secondary: "#FFFFFF" },
- { name: "Purple", bg: "#2d0057", primary: "#FFD700", secondary: "#E8C8FF" }
- ],
- draw: (ctx, W, H, cw) => drawYardLife(ctx, W, H, cw)
- },
- {
- id: "excellence-grid",
- name: "BLACK EXCELLENCE GRID",
- emoji: "📚",
- vibe: "Bold streetwear meets academic pride",
- colorways: [
- { name: "Maroon", bg: "#3d0010", primary: "#F5E6C8", secondary: "#c9a84c" },
- { name: "Black", bg: "#0d0d0d", primary: "#c9a84c", secondary: "#FFFFFF" },
- { name: "Navy", bg: "#001f3f", primary: "#FFFFFF", secondary: "#FFD700" }
- ],
- draw: (ctx, W, H, cw) => drawExcellenceGrid(ctx, W, H, cw)
- },
- {
- id: "diaspora-roots",
- name: "DIASPORA ROOTS",
- emoji: "🌍",
- vibe: "Pan-African heritage meets Black college pride",
- colorways: [
- { name: "Pan-African", bg: "#0d0d0d", primary: "#FFD700", secondary: "#CC0000" },
- { name: "Earth", bg: "#1a0a00", primary: "#c9a84c", secondary: "#4a7c59" },
- { name: "Kente", bg: "#2d1a00", primary: "#FFD700", secondary: "#008000" }
- ],
- draw: (ctx, W, H, cw) => drawDiasporaRoots(ctx, W, H, cw)
- },
- {
- id: "legacy-stripe",
- name: "LEGACY STRIPE",
- emoji: "🎓",
- vibe: "Classic collegiate with cultural depth",
- colorways: [
- { name: "Navy Gold", bg: "#003A63", primary: "#FFD700", secondary: "#FFFFFF" },
- { name: "Crimson Cream", bg: "#8B0000", primary: "#F5E6C8", secondary: "#c9a84c" },
- { name: "Forest White", bg: "#1B4332", primary: "#FFFFFF", secondary: "#c9a84c" }
- ],
- draw: (ctx, W, H, cw) => drawLegacyStripe(ctx, W, H, cw)
- },
- {
- id: "constellation",
- name: "CONSTELLATION SCHOLAR",
- emoji: "⭐",
- vibe: "Dreamy, aspirational, deeply personal",
- colorways: [
- { name: "Midnight", bg: "#020818", primary: "#c9a84c", secondary: "#FFFFFF" },
- { name: "Deep Purple", bg: "#0d0033", primary: "#FFD700", secondary: "#C8A9FA" },
- { name: "Navy", bg: "#001433", primary: "#87CEEB", secondary: "#FFFFFF" }
- ],
- draw: (ctx, W, H, cw) => drawConstellation(ctx, W, H, cw)
- },
- {
- id: "step-stroll",
- name: "STEP & STROLL",
- emoji: "🔥",
- vibe: "Greek life celebration, zero protected marks",
- colorways: [
- { name: "Purple Gold", bg: "#2d0057", primary: "#FFD700", secondary: "#FFFFFF" },
- { name: "Crimson", bg: "#5a0020", primary: "#FFD700", secondary: "#FFFFFF" },
- { name: "Black Gold", bg: "#0d0d0d", primary: "#c9a84c", secondary: "#FFFFFF" }
- ],
- draw: (ctx, W, H, cw) => drawStepStroll(ctx, W, H, cw)
- },
- {
- id: "pillars",
- name: "PILLARS OF EXCELLENCE",
- emoji: "🏛",
- vibe: "Timeless institutional pride",
- colorways: [
- { name: "Ivory", bg: "#F5F0E8", primary: "#1a1a1a", secondary: "#c9a84c" },
- { name: "Gold", bg: "#c9a84c", primary: "#1a0a00", secondary: "#FFFFFF" },
- { name: "Midnight", bg: "#0d0d0d", primary: "#F5F0E8", secondary: "#c9a84c" }
- ],
- draw: (ctx, W, H, cw) => drawPillars(ctx, W, H, cw)
- }
-];
-
-// ─── ACTIVE COLORWAY STATE ────────────────────────────────────
-const activeColorways = {};
-PATTERNS.forEach(p => activeColorways[p.id] = 0);
-
-let modalPattern = null;
-let modalCwIndex = 0;
-
-// ─── DRAW FUNCTIONS ───────────────────────────────────────────
-
-function drawScholarCrown(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
-
- const cols = Math.ceil(W / 80) + 1;
- const rows = Math.ceil(H / 80) + 1;
-
- for (let r = 0; r < rows; r++) {
- for (let c = 0; c < cols; c++) {
- const x = c * 80 + (r % 2 === 0 ? 0 : 40);
- const y = r * 80;
- const type = (r * cols + c) % 3;
- if (type === 0) drawCrown(ctx, x + 20, y + 20, 22, cw.primary);
- else if (type === 1) drawBook(ctx, x + 20, y + 20, 18, cw.secondary);
- else drawStar(ctx, x + 20, y + 20, 10, cw.primary, 0.5);
- }
- }
-}
-
-function drawCrown(ctx, x, y, size, color) {
- ctx.fillStyle = color;
- ctx.beginPath();
- ctx.moveTo(x - size, y + size * 0.6);
- ctx.lineTo(x - size, y - size * 0.2);
- ctx.lineTo(x - size * 0.4, y + size * 0.1);
- ctx.lineTo(x, y - size);
- ctx.lineTo(x + size * 0.4, y + size * 0.1);
- ctx.lineTo(x + size, y - size * 0.2);
- ctx.lineTo(x + size, y + size * 0.6);
- ctx.closePath();
- ctx.fill();
- // Base
- ctx.fillRect(x - size, y + size * 0.5, size * 2, size * 0.3);
-}
-
-function drawBook(ctx, x, y, size, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.7;
- ctx.fillRect(x - size, y - size * 0.7, size * 2, size * 1.4);
- ctx.globalAlpha = 1;
- ctx.strokeStyle = color;
- ctx.lineWidth = 1.5;
- ctx.beginPath();
- ctx.moveTo(x, y - size * 0.7);
-
-
-
-MM
-ME
-
-Screenshot 2026-07-14 8.17.18 PM.png
-Screenshot 2026-07-14 8.17.18 PM.png
-
-where are the designs
-
-
-AISHA
-The designs are missing because the code got cut off before it finished rendering them. Let me give you a complete, working version. Save this as a new index.html file:
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -554,7 +152,6 @@ const DESIGNS = [
  }
 ];
 
-// Track active colorway per card
 const activeCW = DESIGNS.map( => 0);
 
 // ── BUILD GALLERY ──────────────────────────────────────────
@@ -594,28 +191,26 @@ function nextColorway(i) {
 function downloadPattern(i) {
  const canvas = document.getElementById("c" + i);
  const link = document.createElement("a");
- link.download = DESIGNS[i].name.replace(/\s+/g,"-").toLowerCase + ".png";
+ link.download = DESIGNS[i].name.replace(/\s+/g, "-").toLowerCase + ".png";
  link.href = canvas.toDataURL("image/png");
  link.click;
 }
 
-// ── DRAW: SCHOLAR CROWN ────────────────────────────────────
-function drawScholarCrown(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- const spacing = 80;
- const cols = Math.ceil(W / spacing) + 1;
- const rows = Math.ceil(H / spacing) + 1;
- for (let r = 0; r < rows; r++) {
- for (let c = 0; c < cols; c++) {
- const x = c * spacing + (r % 2 === 0 ? 0 : 40);
- const y = r * spacing;
- const t = (r * cols + c) % 3;
- if (t === 0) crown(ctx, x + 20, y + 20, 20, cw.p1);
- else if (t === 1) book(ctx, x + 20, y + 20, 16, cw.p2);
- else star5(ctx, x + 20, y + 20, 9, cw.p1, 0.45);
+// ── HELPER FUNCTIONS ───────────────────────────────────────
+function star5(ctx, x, y, s, color, alpha) {
+ ctx.globalAlpha = alpha || 1;
+ ctx.fillStyle = color;
+ ctx.beginPath;
+ for (let i = 0; i < 10; i++) {
+ const r = i % 2 === 0 ? s : s * 0.4;
+ const a = (i * Math.PI) / 5 - Math.PI / 2;
+ i === 0
+ ? ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a))
+ : ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
  }
- }
+ ctx.closePath;
+ ctx.fill;
+ ctx.globalAlpha = 1;
 }
 
 function crown(ctx, x, y, s, color) {
@@ -639,56 +234,13 @@ function book(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.6;
  ctx.fillRect(x - s, y - s * 0.65, s * 2, s * 1.3);
- ctx.strokeStyle = cDarken(color);
+ ctx.strokeStyle = color;
  ctx.lineWidth = 1.5;
  ctx.beginPath;
  ctx.moveTo(x, y - s * 0.65);
  ctx.lineTo(x, y + s * 0.65);
  ctx.stroke;
  ctx.globalAlpha = 1;
-}
-
-function star5(ctx, x, y, s, color, alpha) {
- ctx.globalAlpha = alpha || 1;
- ctx.fillStyle = color;
- ctx.beginPath;
- for (let i = 0; i < 10; i++) {
- const r = i % 2 === 0 ? s : s * 0.4;
- const a = (i * Math.PI) / 5 - Math.PI / 2;
- i === 0 ? ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a))
- : ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
- }
- ctx.closePath;
- ctx.fill;
- ctx.globalAlpha = 1;
-}
-
-// ── DRAW: YARD LIFE ────────────────────────────────────────
-function drawYardLife(ctx, W, H, cw) {
- ctx.fillStyle = cw.bg;
- ctx.fillRect(0, 0, W, H);
- const GL = ["Ω","Δ","Σ","Φ","Ψ","Λ","Α","Κ"];
- const sp = 75;
- const cols = Math.ceil(W / sp) + 1;
- const rows = Math.ceil(H / sp) + 1;
- for (let r = 0; r < rows; r++) {
- for (let c = 0; c < cols; c++) {
- const x = c * sp + (r % 2 === 0 ? 0 : 37);
- const y = r * sp;
- const t = (r * cols + c) % 4;
- if (t === 0) stepFigure(ctx, x + 20, y + 25, 20, cw.p1);
- else if (t === 1) {
- ctx.fillStyle = cw.p2;
- ctx.globalAlpha = 0.55;
- ctx.font = "bold 22px serif";
- ctx.textAlign = "center";
- ctx.fillText(GL[(r + c) % GL.length], x + 20, y + 30);
- ctx.globalAlpha = 1;
- }
- else if (t === 2) musicNote(ctx, x + 20, y + 25, 13, cw.p1);
- else star5(ctx, x + 20, y + 25, 8, cw.p2, 0.35);
- }
- }
 }
 
 function stepFigure(ctx, x, y, s, color) {
@@ -728,7 +280,126 @@ function musicNote(ctx, x, y, s, color) {
  ctx.globalAlpha = 1;
 }
 
-// ── DRAW: EXCELLENCE GRID ──────────────────────────────────
+function ankh(ctx, x, y, s, color) {
+ ctx.strokeStyle = color;
+ ctx.lineWidth = s * 0.17;
+ ctx.globalAlpha = 0.65;
+ ctx.beginPath;
+ ctx.moveTo(x, y - s * 0.25);
+ ctx.lineTo(x, y + s);
+ ctx.moveTo(x - s * 0.48, y + s * 0.1);
+ ctx.lineTo(x + s * 0.48, y + s * 0.1);
+ ctx.stroke;
+ ctx.beginPath;
+ ctx.arc(x, y - s * 0.28, s * 0.33, 0, Math.PI * 2);
+ ctx.stroke;
+ ctx.globalAlpha = 1;
+}
+
+function gradCap(ctx, x, y, s, color) {
+ ctx.fillStyle = color;
+ ctx.globalAlpha = 0.65;
+ ctx.save;
+ ctx.translate(x, y);
+ ctx.fillRect(-s, -s * 0.18, s * 2, s * 0.36);
+ ctx.beginPath;
+ ctx.moveTo(0, -s * 0.5);
+ ctx.lineTo(s * 0.48, 0);
+ ctx.lineTo(0, s * 0.5);
+ ctx.lineTo(-s * 0.48, 0);
+ ctx.closePath;
+ ctx.fill;
+ ctx.restore;
+ ctx.globalAlpha = 1;
+}
+
+function footprint(ctx, x, y, s, color) {
+ ctx.fillStyle = color;
+ ctx.globalAlpha = 0.6;
+ ctx.beginPath;
+ ctx.ellipse(x, y, s * 0.32, s * 0.55, 0.2, 0, Math.PI * 2);
+ ctx.fill;
+ for (let i = 0; i < 4; i++) {
+ ctx.beginPath;
+ ctx.ellipse(x - s * 0.4 + i * s * 0.28, y - s * 0.62, s * 0.13, s * 0.18, 0, 0, Math.PI * 2);
+ ctx.fill;
+ }
+ ctx.globalAlpha = 1;
+}
+
+function shield(ctx, x, y, s, color) {
+ ctx.fillStyle = color;
+ ctx.globalAlpha = 0.55;
+ ctx.beginPath;
+ ctx.moveTo(x, y - s);
+ ctx.lineTo(x + s * 0.75, y - s * 0.4);
+ ctx.lineTo(x + s * 0.75, y + s * 0.2);
+ ctx.quadraticCurveTo(x + s * 0.75, y + s, x, y + s);
+ ctx.quadraticCurveTo(x - s * 0.75, y + s, x - s * 0.75, y + s * 0.2);
+ ctx.lineTo(x - s * 0.75, y - s * 0.4);
+ ctx.closePath;
+ ctx.fill;
+ ctx.globalAlpha = 1;
+}
+
+function pillar(ctx, x, y, w, h, color) {
+ ctx.fillStyle = color;
+ ctx.globalAlpha = 0.7;
+ // shaft
+ ctx.fillRect(x - w / 2, y - h / 2, w, h);
+ // capital top
+ ctx.fillRect(x - w * 0.75, y - h / 2 - w * 0.3, w * 1.5, w * 0.3);
+ // base bottom
+ ctx.fillRect(x - w * 0.75, y + h / 2, w * 1.5, w * 0.3);
+ ctx.globalAlpha = 1;
+}
+
+// ── DRAW FUNCTIONS ─────────────────────────────────────────
+function drawScholarCrown(ctx, W, H, cw) {
+ ctx.fillStyle = cw.bg;
+ ctx.fillRect(0, 0, W, H);
+ const sp = 80;
+ const cols = Math.ceil(W / sp) + 1;
+ const rows = Math.ceil(H / sp) + 1;
+ for (let r = 0; r < rows; r++) {
+ for (let c = 0; c < cols; c++) {
+ const x = c * sp + (r % 2 === 0 ? 0 : 40);
+ const y = r * sp;
+ const t = (r * cols + c) % 3;
+ if (t === 0) crown(ctx, x + 20, y + 22, 20, cw.p1);
+ else if (t === 1) book(ctx, x + 20, y + 22, 16, cw.p2);
+ else star5(ctx, x + 20, y + 22, 9, cw.p1, 0.45);
+ }
+ }
+}
+
+function drawYardLife(ctx, W, H, cw) {
+ ctx.fillStyle = cw.bg;
+ ctx.fillRect(0, 0, W, H);
+ const GL = ["Ω","Δ","Σ","Φ","Ψ","Λ","Α","Κ"];
+ const sp = 75;
+ const cols = Math.ceil(W / sp) + 1;
+ const rows = Math.ceil(H / sp) + 1;
+ for (let r = 0; r < rows; r++) {
+ for (let c = 0; c < cols; c++) {
+ const x = c * sp + (r % 2 === 0 ? 0 : 37);
+ const y = r * sp;
+ const t = (r * cols + c) % 4;
+ if (t === 0) stepFigure(ctx, x + 20, y + 25, 20, cw.p1);
+ else if (t === 1) {
+ ctx.fillStyle = cw.p2;
+ ctx.globalAlpha = 0.55;
+ ctx.font = "bold 22px serif";
+ ctx.textAlign = "center";
+ ctx.fillText(GL[(r + c) % GL.length], x + 20, y + 30);
+ ctx.globalAlpha = 1;
+ }
+ else if (t === 2) musicNote(ctx, x + 20, y + 25, 13, cw.p1);
+ else star5(ctx, x + 20, y + 25, 8, cw.p2, 0.35);
+ }
+ }
+}
+
 function drawExcellenceGrid(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
@@ -765,7 +436,6 @@ function drawExcellenceGrid(ctx, W, H, cw) {
  ctx.globalAlpha = 1;
 }
 
-// ── DRAW: DIASPORA ROOTS ───────────────────────────────────
 function drawDiasporaRoots(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
@@ -796,40 +466,6 @@ function drawDiasporaRoots(ctx, W, H, cw) {
  }
 }
 
-function ankh(ctx, x, y, s, color) {
- ctx.strokeStyle = color;
- ctx.lineWidth = s * 0.17;
- ctx.globalAlpha = 0.65;
- ctx.beginPath;
- ctx.moveTo(x, y - s * 0.25);
- ctx.lineTo(x, y + s);
- ctx.moveTo(x - s * 0.48, y + s * 0.1);
- ctx.lineTo(x + s * 0.48, y + s * 0.1);
- ctx.stroke;
- ctx.beginPath;
- ctx.arc(x, y - s * 0.28, s * 0.33, 0, Math.PI * 2);
- ctx.stroke;
- ctx.globalAlpha = 1;
-}
-
-function gradCap(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.65;
- ctx.save;
- ctx.translate(x, y);
- ctx.fillRect(-s, -s * 0.18, s * 2, s * 0.36);
- ctx.beginPath;
- ctx.moveTo(0, -s * 0.5);
- ctx.lineTo(s * 0.48, 0);
- ctx.lineTo(0, s * 0.5);
- ctx.lineTo(-s * 0.48, 0);
- ctx.closePath;
- ctx.fill;
- ctx.restore;
- ctx.globalAlpha = 1;
-}
-
-// ── DRAW: LEGACY STRIPE ────────────────────────────────────
 function drawLegacyStripe(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
@@ -872,7 +508,6 @@ function drawLegacyStripe(ctx, W, H, cw) {
  ctx.globalAlpha = 1;
 }
 
-// ── DRAW: CONSTELLATION ────────────────────────────────────
 function drawConstellation(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
@@ -882,9 +517,8 @@ function drawConstellation(ctx, W, H, cw) {
  ctx.fillStyle = grad;
  ctx.fillRect(0, 0, W, H);
  const stars = ;
- // Seeded pseudo-random for consistent look
  let seed = 42;
- function rnd { seed = (seed * 16807 + 0) % 2147483647; return (seed - 1) / 2147483646; }
+ function rnd { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
  for (let i = 0; i < 65; i++) {
  stars.push({ x: rnd * W, y: rnd * H, r: rnd * 2.8 + 0.8 });
  }
@@ -923,7 +557,6 @@ function drawConstellation(ctx, W, H, cw) {
  ctx.globalAlpha = 1;
 }
 
-// ── DRAW: STEP & STROLL ────────────────────────────────────
 function drawStepStroll(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
@@ -940,10 +573,9 @@ function drawStepStroll(ctx, W, H, cw) {
  else star5(ctx, x + 22, y + 22, 9, cw.p1, 0.38);
  }
  }
- // Accent dots row
  for (let x = 0; x < W; x += 18) {
  ctx.fillStyle = x % 54 === 0 ? cw.p1 : cw.p2;
- ctx.globalAlpha = 0.25;
+ ctx.globalAlpha = 0.22;
  ctx.beginPath;
  ctx.arc(x, H / 2, 3, 0, Math.PI * 2);
  ctx.fill;
@@ -951,41 +583,13 @@ function drawStepStroll(ctx, W, H, cw) {
  ctx.globalAlpha = 1;
 }
 
-function footprint(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.6;
- ctx.beginPath;
- ctx.ellipse(x, y, s * 0.32, s * 0.55, 0.2, 0, Math.PI * 2);
- ctx.fill;
- for (let i = 0; i < 4; i++) {
- ctx.beginPath;
- ctx.ellipse(x - s * 0.4 + i * s * 0.28, y - s * 0.62, s * 0.13, s * 0.18, 0, 0, Math.PI * 2);
- ctx.fill;
- }
- ctx.globalAlpha = 1;
-}
-
-function shield(ctx, x, y, s, color) {
- ctx.fillStyle = color;
- ctx.globalAlpha = 0.55;
- ctx.beginPath;
- ctx.moveTo(x, y - s);
- ctx.lineTo(x + s * 0.75, y - s * 0.4);
- ctx.lineTo(x + s * 0.75, y + s * 0.2);
- ctx.quadraticCurveTo(x + s * 0.75, y + s, x, y + s);
- ctx.quadraticCurveTo(x - s * 0.75, y + s, x - s * 0.75, y + s * 0.2);
- ctx.lineTo(x - s * 0.75, y - s * 0.4);
- ctx.closePath;
- ctx.fill;
- ctx.globalAlpha = 1;
-}
-
-// ── DRAW: PILLARS ──────────────────────────────────────────
 function drawPillars(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
- const pillarW = 38;
- const gap = 55;
- const cols = Math.ceil(W / (pillarW + gap)) + 1;
+ const pw = 36;
+ const gap = 52;
+ const total = pw + gap;
+ const cols = Math.ceil(W / total) + 1;
+ const words = ["TRUTH","SERVICE","EXCELLENCE","LEGACY","PRIDE"];
  for (let c = 0; c < cols; c++) {
- const x = c * (pillarW + gap) + 10
+ const x = c * total + pw
