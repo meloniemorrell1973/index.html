@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>HBCU Pride Patterns | Nubian Pride Marketplace</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+ { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', sans-serif; background: #0d0d0d; color: #f5f5f5; }
 header {
  background: linear-gradient(135deg, #1a0a00, #3d1f00);
@@ -101,7 +101,7 @@ var DESIGNS = [
  {bg:"#0d0033",p1:"#FFD700",p2:"#C8A9FA"},
  {bg:"#001433",p1:"#87CEEB",p2:"#FFFFFF"}
  ], draw: drawConstellation },
- { name:"STEP & STROLL", vibe:"Greek life celebration, zero protected marks",
+ { name:"STEP AND STROLL", vibe:"Greek life celebration",
  colorways:[
  {bg:"#2d0057",p1:"#FFD700",p2:"#FFFFFF"},
  {bg:"#5a0020",p1:"#FFD700",p2:"#FFFFFF"},
@@ -162,28 +162,28 @@ function drawCrown(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.85;
  ctx.beginPath;
- ctx.moveTo(x - s, y + s * 0.5);
- ctx.lineTo(x - s, y - s * 0.1);
- ctx.lineTo(x - s * 0.35, y + s * 0.15);
+ ctx.moveTo(x - s, y + s  0.5);
+ ctx.lineTo(x - s, y - s  0.1);
+ ctx.lineTo(x - s  0.35, y + s  0.15);
  ctx.lineTo(x, y - s);
- ctx.lineTo(x + s * 0.35, y + s * 0.15);
- ctx.lineTo(x + s, y - s * 0.1);
- ctx.lineTo(x + s, y + s * 0.5);
+ ctx.lineTo(x + s  0.35, y + s  0.15);
+ ctx.lineTo(x + s, y - s  0.1);
+ ctx.lineTo(x + s, y + s  0.5);
  ctx.closePath;
  ctx.fill;
- ctx.fillRect(x - s, y + s * 0.4, s * 2, s * 0.25);
+ ctx.fillRect(x - s, y + s  0.4, s  2, s  0.25);
  ctx.globalAlpha = 1;
 }
 
 function drawBook(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.6;
- ctx.fillRect(x - s, y - s * 0.65, s * 2, s * 1.3);
+ ctx.fillRect(x - s, y - s  0.65, s  2, s  1.3);
  ctx.strokeStyle = color;
  ctx.lineWidth = 1.5;
  ctx.beginPath;
- ctx.moveTo(x, y - s * 0.65);
- ctx.lineTo(x, y + s * 0.65);
+ ctx.moveTo(x, y - s  0.65);
+ ctx.lineTo(x, y + s  0.65);
  ctx.stroke;
  ctx.globalAlpha = 1;
 }
@@ -193,10 +193,10 @@ function drawStar(ctx, x, y, s, color, alpha) {
  ctx.fillStyle = color;
  ctx.beginPath;
  for (var i = 0; i < 10; i++) {
- var r = i % 2 === 0 ? s : s * 0.4;
- var a = (i * Math.PI) / 5 - Math.PI / 2;
- if (i === 0) ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a));
- else ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
+ var r = i % 2 === 0 ? s : s  0.4;
+ var a = (i  Math.PI) / 5 - Math.PI / 2;
+ if (i === 0) ctx.moveTo(x + r  Math.cos(a), y + r  Math.sin(a));
+ else ctx.lineTo(x + r  Math.cos(a), y + r  Math.sin(a));
  }
  ctx.closePath;
  ctx.fill;
@@ -208,19 +208,19 @@ function drawFigure(ctx, x, y, s, color) {
  ctx.strokeStyle = color;
  ctx.globalAlpha = 0.7;
  ctx.beginPath;
- ctx.arc(x, y - s * 0.7, s * 0.2, 0, Math.PI * 2);
+ ctx.arc(x, y - s  0.7, s  0.2, 0, Math.PI  2);
  ctx.fill;
- ctx.fillRect(x - s * 0.08, y - s * 0.5, s * 0.16, s * 0.45);
- ctx.lineWidth = s * 0.1;
+ ctx.fillRect(x - s  0.08, y - s  0.5, s  0.16, s  0.45);
+ ctx.lineWidth = s  0.1;
  ctx.beginPath;
- ctx.moveTo(x - s * 0.08, y - s * 0.28);
- ctx.lineTo(x - s * 0.45, y - s * 0.55);
- ctx.moveTo(x + s * 0.08, y - s * 0.28);
- ctx.lineTo(x + s * 0.45, y - s * 0.55);
- ctx.moveTo(x, y - s * 0.05);
- ctx.lineTo(x - s * 0.28, y + s * 0.48);
- ctx.moveTo(x, y - s * 0.05);
- ctx.lineTo(x + s * 0.28, y + s * 0.48);
+ ctx.moveTo(x - s  0.08, y - s  0.28);
+ ctx.lineTo(x - s  0.45, y - s  0.55);
+ ctx.moveTo(x + s  0.08, y - s  0.28);
+ ctx.lineTo(x + s  0.45, y - s  0.55);
+ ctx.moveTo(x, y - s  0.05);
+ ctx.lineTo(x - s  0.28, y + s  0.48);
+ ctx.moveTo(x, y - s  0.05);
+ ctx.lineTo(x + s  0.28, y + s  0.48);
  ctx.stroke;
  ctx.globalAlpha = 1;
 }
@@ -229,29 +229,29 @@ function drawNote(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.55;
  ctx.beginPath;
- ctx.arc(x - s * 0.18, y + s * 0.35, s * 0.32, 0, Math.PI * 2);
+ ctx.arc(x - s  0.18, y + s  0.35, s  0.32, 0, Math.PI  2);
  ctx.fill;
- ctx.fillRect(x + s * 0.1, y - s * 0.55, s * 0.15, s * 0.9);
+ ctx.fillRect(x + s  0.1, y - s  0.55, s  0.15, s  0.9);
  ctx.beginPath;
- ctx.arc(x + s * 0.18, y + s * 0.35, s * 0.32, 0, Math.PI * 2);
+ ctx.arc(x + s  0.18, y + s  0.35, s  0.32, 0, Math.PI  2);
  ctx.fill;
- ctx.fillRect(x + s * 0.32, y - s * 0.55, s * 0.15, s * 0.9);
- ctx.fillRect(x + s * 0.1, y - s * 0.55, s * 0.37, s * 0.15);
+ ctx.fillRect(x + s  0.32, y - s  0.55, s  0.15, s  0.9);
+ ctx.fillRect(x + s  0.1, y - s  0.55, s  0.37, s  0.15);
  ctx.globalAlpha = 1;
 }
 
 function drawAnkh(ctx, x, y, s, color) {
  ctx.strokeStyle = color;
- ctx.lineWidth = s * 0.17;
+ ctx.lineWidth = s  0.17;
  ctx.globalAlpha = 0.65;
  ctx.beginPath;
- ctx.moveTo(x, y - s * 0.25);
+ ctx.moveTo(x, y - s  0.25);
  ctx.lineTo(x, y + s);
- ctx.moveTo(x - s * 0.48, y + s * 0.1);
- ctx.lineTo(x + s * 0.48, y + s * 0.1);
+ ctx.moveTo(x - s  0.48, y + s  0.1);
+ ctx.lineTo(x + s  0.48, y + s  0.1);
  ctx.stroke;
  ctx.beginPath;
- ctx.arc(x, y - s * 0.28, s * 0.33, 0, Math.PI * 2);
+ ctx.arc(x, y - s  0.28, s  0.33, 0, Math.PI  2);
  ctx.stroke;
  ctx.globalAlpha = 1;
 }
@@ -261,12 +261,12 @@ function drawCap(ctx, x, y, s, color) {
  ctx.globalAlpha = 0.65;
  ctx.save;
  ctx.translate(x, y);
- ctx.fillRect(-s, -s * 0.18, s * 2, s * 0.36);
+ ctx.fillRect(-s, -s  0.18, s  2, s  0.36);
  ctx.beginPath;
- ctx.moveTo(0, -s * 0.5);
- ctx.lineTo(s * 0.48, 0);
- ctx.lineTo(0, s * 0.5);
- ctx.lineTo(-s * 0.48, 0);
+ ctx.moveTo(0, -s  0.5);
+ ctx.lineTo(s  0.48, 0);
+ ctx.lineTo(0, s  0.5);
+ ctx.lineTo(-s  0.48, 0);
  ctx.closePath;
  ctx.fill;
  ctx.restore;
@@ -277,11 +277,11 @@ function drawFoot(ctx, x, y, s, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.6;
  ctx.beginPath;
- ctx.ellipse(x, y, s * 0.32, s * 0.55, 0.2, 0, Math.PI * 2);
+ ctx.ellipse(x, y, s  0.32, s  0.55, 0.2, 0, Math.PI  2);
  ctx.fill;
  for (var i = 0; i < 4; i++) {
  ctx.beginPath;
- ctx.ellipse(x - s * 0.4 + i * s * 0.28, y - s * 0.62, s * 0.13, s * 0.18, 0, 0, Math.PI * 2);
+ ctx.ellipse(x - s  0.4 + i  s  0.28, y - s  0.62, s  0.13, s  0.18, 0, 0, Math.PI  2);
  ctx.fill;
  }
  ctx.globalAlpha = 1;
@@ -292,11 +292,11 @@ function drawShield(ctx, x, y, s, color) {
  ctx.globalAlpha = 0.55;
  ctx.beginPath;
  ctx.moveTo(x, y - s);
- ctx.lineTo(x + s * 0.75, y - s * 0.4);
- ctx.lineTo(x + s * 0.75, y + s * 0.2);
- ctx.quadraticCurveTo(x + s * 0.75, y + s, x, y + s);
- ctx.quadraticCurveTo(x - s * 0.75, y + s, x - s * 0.75, y + s * 0.2);
- ctx.lineTo(x - s * 0.75, y - s * 0.4);
+ ctx.lineTo(x + s  0.75, y - s  0.4);
+ ctx.lineTo(x + s  0.75, y + s  0.2);
+ ctx.quadraticCurveTo(x + s  0.75, y + s, x, y + s);
+ ctx.quadraticCurveTo(x - s  0.75, y + s, x - s  0.75, y + s  0.2);
+ ctx.lineTo(x - s  0.75, y - s  0.4);
  ctx.closePath;
  ctx.fill;
  ctx.globalAlpha = 1;
@@ -306,8 +306,8 @@ function drawPillar(ctx, x, y, w, h, color) {
  ctx.fillStyle = color;
  ctx.globalAlpha = 0.7;
  ctx.fillRect(x - w / 2, y - h / 2, w, h);
- ctx.fillRect(x - w * 0.75, y - h / 2 - w * 0.3, w * 1.5, w * 0.3);
- ctx.fillRect(x - w * 0.75, y + h / 2, w * 1.5, w * 0.3);
+ ctx.fillRect(x - w  0.75, y - h / 2 - w  0.3, w  1.5, w  0.3);
+ ctx.fillRect(x - w  0.75, y + h / 2, w  1.5, w  0.3);
  ctx.globalAlpha = 1;
 }
 
@@ -319,9 +319,9 @@ function drawScholarCrown(ctx, W, H, cw) {
  var sp = 80, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
  for (var r = 0; r < rows; r++) {
  for (var c = 0; c < cols; c++) {
- var x = c * sp + (r % 2 === 0 ? 0 : 40);
- var y = r * sp;
- var t = (r * cols + c) % 3;
+ var x = c  sp + (r % 2 === 0 ? 0 : 40);
+ var y = r  sp;
+ var t = (r  cols + c) % 3;
  if (t === 0) drawCrown(ctx, x+20, y+22, 20, cw.p1);
  else if (t === 1) drawBook(ctx, x+20, y+22, 16, cw.p2);
  else drawStar(ctx, x+20, y+22, 9, cw.p1, 0.45);
@@ -336,9 +336,9 @@ function drawYardLife(ctx, W, H, cw) {
  var sp = 75, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
  for (var r = 0; r < rows; r++) {
  for (var c = 0; c < cols; c++) {
- var x = c * sp + (r % 2 === 0 ? 0 : 37);
- var y = r * sp;
- var t = (r * cols + c) % 4;
+ var x = c  sp + (r % 2 === 0 ? 0 : 37);
+ var y = r  sp;
+ var t = (r  cols + c) % 4;
  if (t === 0) drawFigure(ctx, x+20, y+25, 20, cw.p1);
  else if (t === 1) {
  ctx.fillStyle = cw.p2;
@@ -360,14 +360,14 @@ function drawExcellenceGrid(ctx, W, H, cw) {
  var s = 58;
  ctx.strokeStyle = cw.p1;
  ctx.lineWidth = 1;
- for (var x = -s; x < W+s; x += s) {
- for (var y = -s; y < H+s; y += s) {
+ for (var gx = -s; gx < W+s; gx += s) {
+ for (var gy = -s; gy < H+s; gy += s) {
  ctx.globalAlpha = 0.22;
  ctx.beginPath;
- ctx.moveTo(x, y - s/2);
- ctx.lineTo(x + s/2, y);
- ctx.lineTo(x, y + s/2);
- ctx.lineTo(x - s/2, y);
+ ctx.moveTo(gx, gy - s/2);
+ ctx.lineTo(gx + s/2, gy);
+ ctx.lineTo(gx, gy + s/2);
+ ctx.lineTo(gx - s/2, gy);
  ctx.closePath;
  ctx.stroke;
  }
@@ -378,8 +378,8 @@ function drawExcellenceGrid(ctx, W, H, cw) {
  var pi = 0;
  for (var r = 0; r < Math.ceil(H/65)+1; r++) {
  for (var c = 0; c < Math.ceil(W/115)+1; c++) {
- var px = c * 115 + (r % 2 === 0 ? 0 : 57);
- var py = r * 65 + 22;
+ var px = c  115 + (r % 2 === 0 ? 0 : 57);
+ var py = r  65 + 22;
  ctx.font = "bold " + (r % 2 === 0 ? 13 : 11) + "px 'Segoe UI', sans-serif";
  ctx.fillStyle = pi % 2 === 0 ? cw.p1 : cw.p2;
  ctx.globalAlpha = 0.8;
@@ -394,22 +394,22 @@ function drawDiasporaRoots(ctx, W, H, cw) {
  ctx.fillStyle = cw.bg;
  ctx.fillRect(0, 0, W, H);
  var kc = [cw.p1, cw.p2, "#FFFFFF", cw.p1, cw.p2];
- var sh = 24, bands = Math.ceil(H / (sh*4));
+ var sh = 24, bands = Math.ceil(H / (sh4));
  for (var b = 0; b < bands; b++) {
- var by = b * sh * 4;
- for (var x = 0; x < W; x += 18) {
- ctx.fillStyle = kc[(Math.floor(x/18) + b) % kc.length];
+ var by = b  sh  4;
+ for (var kx = 0; kx < W; kx += 18) {
+ ctx.fillStyle = kc[(Math.floor(kx/18) + b) % kc.length];
  ctx.globalAlpha = 0.28;
- ctx.fillRect(x, by, 16, sh);
+ ctx.fillRect(kx, by, 16, sh);
  }
  }
  ctx.globalAlpha = 1;
  var sp = 88, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
  for (var r = 0; r < rows; r++) {
  for (var c = 0; c < cols; c++) {
- var ex = c * sp + (r % 2 === 0 ? 0 : 44);
- var ey = r * sp + 20;
- var t = (r * cols + c) % 3;
+ var ex = c  sp + (r % 2 === 0 ? 0 : 44);
+ var ey = r  sp + 20;
+ var t = (r  cols + c) % 3;
  if (t === 0) drawAnkh(ctx, ex, ey, 17, cw.p1);
  else if (t === 1) drawCap(ctx, ex, ey, 15, cw.p2);
  else drawStar(ctx, ex, ey, 9, cw.p1, 0.45);
@@ -422,7 +422,7 @@ function drawLegacyStripe(ctx, W, H, cw) {
  ctx.fillRect(0, 0, W, H);
  var sw = 55, cols = Math.ceil(W/sw)+1;
  for (var c = 0; c < cols; c++) {
- var x = c * sw;
+ var x = c  sw;
  if (c % 2 === 0) {
  ctx.fillStyle = cw.p1;
  ctx.globalAlpha = 0.1;
@@ -436,15 +436,15 @@ function drawLegacyStripe(ctx, W, H, cw) {
  ctx.lineTo(x, H);
  ctx.stroke;
  ctx.globalAlpha = 1;
- var icons = ["G","B","K","T"];
+ var letters = ["G","B","K","T"];
  var rowCount = Math.ceil(H/52);
  for (var r = 0; r < rowCount; r++) {
- var y = r * 52 + 26;
+ var y = r  52 + 26;
  ctx.font = "17px serif";
  ctx.textAlign = "center";
  ctx.fillStyle = cw.p1;
  ctx.globalAlpha = 0.38;
- ctx.fillText(icons[(c+r) % icons.length], x + sw/2, y);
+ ctx.fillText(letters[(c+r) % letters.length], x + sw/2, y);
  ctx.globalAlpha = 1;
  }
  }
@@ -454,7 +454,7 @@ function drawLegacyStripe(ctx, W, H, cw) {
  ctx.fillStyle = cw.p2;
  ctx.globalAlpha = 0.45;
  for (var wr = 0; wr < Math.ceil(H/75); wr++) {
- ctx.fillText(words[wr % words.length], W/2, wr * 75 + 48);
+ ctx.fillText(words[wr % words.length], W/2, wr  75 + 48);
  }
  ctx.globalAlpha = 1;
 }
@@ -464,9 +464,9 @@ function drawConstellation(ctx, W, H, cw) {
  ctx.fillRect(0, 0, W, H);
  var stars = ;
  var seed = 42;
- function rnd { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+ function rnd { seed = (seed  16807) % 2147483647; return (seed - 1) / 2147483646; }
  for (var i = 0; i < 65; i++) {
- stars.push({ x: rnd * W, y: rnd * H, r: rnd * 2.8 + 0.8 });
+ stars.push({ x: rnd  W, y: rnd  H, r: rnd  2.8 + 0.8 });
  }
  ctx.strokeStyle = cw.p1;
  ctx.lineWidth = 0.7;
@@ -487,7 +487,7 @@ function drawConstellation(ctx, W, H, cw) {
  ctx.fillStyle = stars[i].r > 2.2 ? cw.p1 : cw.p2;
  ctx.globalAlpha = stars[i].r > 2.2 ? 0.95 : 0.5;
  ctx.beginPath;
- ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, Math.PI * 2);
+ ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, Math.PI  2);
  ctx.fill;
  }
  ctx.globalAlpha = 1;
@@ -497,7 +497,7 @@ function drawConstellation(ctx, W, H, cw) {
  ctx.fillStyle = cw.p1;
  ctx.globalAlpha = 0.45;
  for (var i = 0; i < labels.length; i++) {
- var s = stars[i * 14];
+ var s = stars[i  14];
  if (s) ctx.fillText(labels[i], s.x, s.y - 9);
  }
  ctx.globalAlpha = 1;
@@ -509,9 +509,52 @@ function drawStepStroll(ctx, W, H, cw) {
  var sp = 70, cols = Math.ceil(W/sp)+1, rows = Math.ceil(H/sp)+1;
  for (var r = 0; r < rows; r++) {
  for (var c = 0; c < cols; c++) {
- var x = c * sp + (r % 2 === 0 ? 0 : 35);
- var y = r * sp;
- var t = (r * cols + c) % 3;
+ var x = c  sp + (r % 2 === 0 ? 0 : 35);
+ var y = r  sp;
+ var t = (r  cols + c) % 3;
  if (t === 0) drawFoot(ctx, x+22, y+22, 14, cw.p1);
  else if (t === 1) drawShield(ctx, x+22, y+22, 16, cw.p2);
- else drawStar(ctx, x+22, y+22, 9, cw.p1, 
+ else drawStar(ctx, x+22, y+22, 9, cw.p1, 0.38);
+ }
+ }
+ for (var dx = 0; dx < W; dx += 18) {
+ ctx.fillStyle = dx % 54 === 0 ? cw.p1 : cw.p2;
+ ctx.globalAlpha = 0.22;
+ ctx.beginPath;
+ ctx.arc(dx, H/2, 3, 0, Math.PI  2);
+ ctx.fill;
+ }
+ ctx.globalAlpha = 1;
+}
+
+function drawPillars(ctx, W, H, cw) {
+ ctx.fillStyle = cw.bg;
+ ctx.fillRect(0, 0, W, H);
+ var pw = 36, gap = 52, total = pw + gap;
+ var cols = Math.ceil(W / total) + 2;
+ var words = ["TRUTH","SERVICE","EXCELLENCE","LEGACY","PRIDE"];
+ for (var c = 0; c < cols; c++) {
+ var x = c  total + 20;
+ drawPillar(ctx, x, H/2, pw, H * 0.65, cw.p1);
+ ctx.fillStyle = cw.p2;
+ ctx.globalAlpha = 0.6;
+ ctx.font = "bold 9px 'Segoe UI', sans-serif";
+ ctx.textAlign = "center";
+ ctx.fillText(words[c % words.length], x, H/2 + 6);
+ ctx.globalAlpha = 1;
+ }
+ ctx.font = "bold 14px 'Segoe UI', sans-serif";
+ ctx.textAlign = "center";
+ ctx.fillStyle = cw.p2;
+ ctx.globalAlpha = 0.35;
+ ctx.fillText("HBCU PROUD", W/2, 30);
+ ctx.fillText("PILLARS OF EXCELLENCE", W/2, H - 16);
+ ctx.globalAlpha = 1;
+}
+
+// ── LAUNCH ─────────────────────────────────────────────────
+buildGallery;
+
+</script>
+</body>
+</html>
